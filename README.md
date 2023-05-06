@@ -1,7 +1,17 @@
-![AVA Logo](./assets/images/logo-no-background.png)
+<p align="center">
+<img src="./assets/images/splash.png" alt="Alternative text" title="Image title" height="300"/>
+</p>
+
 # AVA - Advanced Virtual Agent
 
 *AVA* stands for ***advanced virtual agent*** and is meant to help anyone with quick/on-tap question handling on mobile platforms. Created by Noah Velasco, AVA started as a personal project and will continue to be supported until further notice. This repository can be used by anyone however requires API key's anyone can generate for free from [OpenAI](https://platform.openai.com/account/api-keys) and [ElevenLabs](https://docs.elevenlabs.io/authentication/01-xi-api-key). The goal is to create a plug and play virtual agent that anyone can use with minor constraints such as the overall UI/UX experience.
+
+
+<h3 align="center">Technologies Used</h3>
+<p align="center">
+<a href="https://dart.dev" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" alt="dart" width="40" height="40"/>
+<a href="https://flutter.dev" target="_blank" rel="noreferrer"><img src="https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" alt="flutter" width="40" height="40"/></a><a href="https://flutter.dev" target="_blank" rel="noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Eleven_Labs.png" alt="flutter" height="40"/></a><a href="https://flutter.dev" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/2560px-OpenAI_Logo.svg.png" alt="flutter" height="40"/></a><a href="https://flutter.dev" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-ar21.svg" alt="flutter" height="40"/></a>
+</p>
 
 ---
 ## Live Demo
@@ -15,10 +25,10 @@
 - [x] Modify/Update request parameters of GPT and ElevenLabs using sliders
 - [x] About and license page
 - [x] Modify/Update the API key's in App 
-- [x] ~~Validate API keys before submission~~
 - [ ] Prompt selection
 - [ ] Custom prompt creation
 - [ ] Voice selection of up to 3 different voices
+- [ ] Validate API keys before submission
 - [ ] Introduction page for initial user setup
 
 ---
