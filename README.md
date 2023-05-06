@@ -15,7 +15,7 @@
 - [x] Modify/Update request parameters of GPT and ElevenLabs using sliders
 - [x] About and license page
 - [x] Modify/Update the API key's in App 
-~~- [ ] Validate API keys before submission~~
+- [x] ~~Validate API keys before submission~~
 - [ ] Prompt selection
 - [ ] Custom prompt creation
 - [ ] Voice selection of up to 3 different voices
