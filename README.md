@@ -50,5 +50,5 @@
 ### Android
 * Enable developer mode on your phone
 
-### iOS (tbh idc about this rn)
+### iOS
 *  Enable developer mode on your phone
