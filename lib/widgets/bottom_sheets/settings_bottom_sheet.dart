@@ -5,8 +5,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class SettingsBottomSheet extends StatelessWidget {
+  InputGPTKeyController inputGPTKeyController;
+  InputElLabsKeyController inputElLabsKeyController;
+
   // ignore: use_key_in_widget_constructors
-  const SettingsBottomSheet({super.key});
+  SettingsBottomSheet(
+      {required this.inputGPTKeyController,
+      required this.inputElLabsKeyController});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,6 @@ class SettingsBottomSheet extends StatelessWidget {
     //All setting presets: api keys, and slider values
     final settingsProvider = Provider.of<SettingsProvider>(context);
     final provider = Provider.of<ThemeProvider>(context);
-    debugPrint("0");
 
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
@@ -63,6 +67,8 @@ class SettingsBottomSheet extends StatelessWidget {
                           oppositeShadowLightSource: false,
                         ),
                         child: TextField(
+                          controller: inputGPTKeyController
+                              .inputGPTKeyTextEditingController,
                           cursorColor: colorScheme.secondary,
                           decoration: InputDecoration(
                             contentPadding:
@@ -70,17 +76,23 @@ class SettingsBottomSheet extends StatelessWidget {
                             border: InputBorder.none,
                             filled: true,
                             fillColor: colorScheme.primary,
-                            hintText: "GPT-3.5-Turbo API Key",
-                            hintStyle: textTheme.bodyMedium,
+                            hintText: "sk-5yg2...",
+                            hintStyle: textTheme.bodyMedium!.copyWith(
+                                color: colorScheme.secondary.withOpacity(.5),
+                                fontStyle: FontStyle.italic),
                             suffixIcon: const Icon(Icons.create),
                           ),
                           style: textTheme.bodyMedium,
                           enabled: true,
+                          onEditingComplete: () {
+                            //autosave the anytext removed or added from this textfield
+                            inputGPTKeyController.setText(inputGPTKeyController
+                                .inputGPTKeyTextEditingController.text);
 
-                          //TODO - make this the buttons job
-                          onSubmitted: (value) {
-                            settingsProvider.setGPTAPIKey(value);
-                            debugPrint("1");
+                            //then save the key into the settings provider - this will update the settings fields
+                            settingsProvider.setGPTAPIKey(inputGPTKeyController
+                                .inputGPTKeyTextEditingController.text);
+                            FocusManager.instance.primaryFocus?.unfocus();
                           },
                         ),
                       ),
@@ -92,12 +104,6 @@ class SettingsBottomSheet extends StatelessWidget {
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.width * 0.025),
                         minDistance: -5,
-                        onPressed: () {
-                          debugPrint("2");
-
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          // widget.controller.inputQuestionTextEditingController.clear();
-                        },
                         style: NeumorphicStyle(
                           lightSource: LightSource.topLeft,
                           intensity:
@@ -113,10 +119,16 @@ class SettingsBottomSheet extends StatelessWidget {
                         ),
                         child: const Center(
                           child: FaIcon(
-                            FontAwesomeIcons.check,
+                            FontAwesomeIcons.trashCan,
                             size: 15,
                           ),
                         ),
+                        onPressed: () {
+                          //autosave the update
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          inputGPTKeyController.inputGPTKeyTextEditingController
+                              .clear();
+                        },
                       ),
                     ),
                   ],
@@ -144,6 +156,8 @@ class SettingsBottomSheet extends StatelessWidget {
                           oppositeShadowLightSource: false,
                         ),
                         child: TextField(
+                          controller: inputElLabsKeyController
+                              .inputElLabsKeyTextEditingController,
                           cursorColor: colorScheme.secondary,
                           decoration: InputDecoration(
                             contentPadding:
@@ -151,16 +165,25 @@ class SettingsBottomSheet extends StatelessWidget {
                             border: InputBorder.none,
                             filled: true,
                             fillColor: colorScheme.primary,
-                            hintText: "ElevenLabs API Key",
-                            hintStyle: textTheme.bodyMedium,
+                            hintText: "23232...",
+                            hintStyle: textTheme.bodyMedium!.copyWith(
+                                color: colorScheme.secondary.withOpacity(.5),
+                                fontStyle: FontStyle.italic),
                             suffixIcon: const Icon(Icons.create),
                           ),
                           style: textTheme.bodyMedium,
                           enabled: true,
-                          //TODO - make this the buttons job
-                          onSubmitted: (value) {
-                            settingsProvider.setElLabsAPIKey(value);
-                            debugPrint("3");
+                          onEditingComplete: () {
+                            //autosave the anytext removed or added from this textfield
+                            inputElLabsKeyController.setText(
+                                inputElLabsKeyController
+                                    .inputElLabsKeyTextEditingController.text);
+
+                            //then save the key into the settings provider - this will update the settings fields
+                            settingsProvider.setElLabsAPIKey(
+                                inputElLabsKeyController
+                                    .inputElLabsKeyTextEditingController.text);
+                            FocusManager.instance.primaryFocus?.unfocus();
                           },
                         ),
                       ),
@@ -172,10 +195,6 @@ class SettingsBottomSheet extends StatelessWidget {
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.width * 0.025),
                         minDistance: -5,
-                        onPressed: () {
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          // widget.controller.inputQuestionTextEditingController.clear();
-                        },
                         style: NeumorphicStyle(
                           lightSource: LightSource.topLeft,
                           intensity:
@@ -191,10 +210,16 @@ class SettingsBottomSheet extends StatelessWidget {
                         ),
                         child: const Center(
                           child: FaIcon(
-                            FontAwesomeIcons.check,
+                            FontAwesomeIcons.trashCan,
                             size: 15,
                           ),
                         ),
+                        onPressed: () {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          inputElLabsKeyController
+                              .inputElLabsKeyTextEditingController
+                              .clear();
+                        },
                       ),
                     ),
                   ],
@@ -240,8 +265,6 @@ class SettingsBottomSheet extends StatelessWidget {
                       max: 1.0,
                       sliderHeight: 1,
                       onChanged: (double value) {
-                        debugPrint("14");
-
                         settingsProvider
                             .setGPTTemp(double.parse(value.toStringAsFixed(2)));
                       },

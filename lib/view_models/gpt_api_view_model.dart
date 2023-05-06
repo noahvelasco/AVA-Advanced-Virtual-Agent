@@ -7,15 +7,10 @@ import 'package:provider/provider.dart';
 import '../providers/export_providers.dart';
 
 class GPTAPIViewModel extends ChangeNotifier {
-  // ignore: prefer_final_fields
-  String _response = '';
-
-  String get response => _response;
-
   Future<void> fetchGPTResponse(BuildContext context, String input) async {
     /*
      
-            Initialize all the providers we need first to get needed fields or to update fields
+    Initialize all the providers we need first to get needed fields or to update fields
 
     - settingsProvider: to get the api key and temperature
     - isLoadingProvider: to set the loading icon to true
@@ -30,8 +25,6 @@ class GPTAPIViewModel extends ChangeNotifier {
 
     final chatHistoryProvider =
         Provider.of<ChatHistoryProvider>(context, listen: false);
-
-    debugPrint('initialized providers...');
 
     //since we are fetching request - we will set the loading icon to true so we can display it in answer text box temporarily
     isLoadingProvider.setIsLoading(true);
@@ -66,9 +59,6 @@ class GPTAPIViewModel extends ChangeNotifier {
       //set the loading icon to false since we are done fetching the response
       isLoadingProvider.setIsLoading(false);
 
-      //notify the listeners to update the ui to remove the loading icon and display the answer
-      notifyListeners();
-
       debugPrint(response.body);
 
       if (response.statusCode == 200) {
@@ -78,12 +68,17 @@ class GPTAPIViewModel extends ChangeNotifier {
 
         //add the gpt response to the history to keep conversational context
         chatHistoryProvider.addGPTResponse(answer);
-        _response = answer;
       } else {
-        _response = 'Request failed with status code: ${response.statusCode}';
+        Map<String, dynamic> responseJson = json.decode(response.body);
+        String errorSummary = responseJson['error']['message'];
+        chatHistoryProvider.addGPTResponse(errorSummary);
       }
     } catch (e) {
-      _response = 'Request failed with error: $e';
+      debugPrint("catch error");
+      debugPrint('Request failed with error: $e');
+    } finally {
+      //notify the listeners to update the ui to remove the loading icon and display the answer regardless of success or failure
+      notifyListeners();
     }
   } //get response from chatgpt future function
 }

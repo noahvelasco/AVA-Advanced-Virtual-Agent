@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class OutputBox extends StatefulWidget {
+  // ignore: use_key_in_widget_constructors
   const OutputBox({super.key});
 
   @override
@@ -19,9 +20,8 @@ class _OutputBoxState extends State<OutputBox> {
     final isLoadingProvider = Provider.of<LoadingIconGPTProvider>(context);
     final ChatHistoryProvider chatHistoryProvider =
         Provider.of<ChatHistoryProvider>(context);
-
-    TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
+    TextTheme textTheme = Theme.of(context).textTheme;
 
     final textThemeItalicized = textTheme.bodyMedium!.copyWith(
       fontStyle: FontStyle.italic,
@@ -45,7 +45,8 @@ class _OutputBoxState extends State<OutputBox> {
               FocusManager.instance.primaryFocus?.unfocus();
               Clipboard.setData(
                 ClipboardData(
-                    text: chatHistoryProvider.chatHistory.last["content"]!),
+                  text: chatHistoryProvider.chatHistory.last["content"]!,
+                ),
               );
               final snackBar = SnackBar(
                 margin:

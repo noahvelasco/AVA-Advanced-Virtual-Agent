@@ -1,14 +1,19 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../controllers/export_controllers.dart';
-import '../_bottom_sheets/settings_bottom_sheet.dart';
+import '../bottom_sheets/settings_bottom_sheet.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/theme_provider.dart';
 
 class SettingsButton extends StatefulWidget {
+  InputGPTKeyController inputGPTKeyController;
+  InputElLabsKeyController inputElLabsKeyController;
+
   // ignore: use_key_in_widget_constructors
-  const SettingsButton({super.key});
+  SettingsButton(
+      {required this.inputGPTKeyController,
+      required this.inputElLabsKeyController});
 
   @override
   State<SettingsButton> createState() => _SettingsButtonState();
@@ -53,7 +58,10 @@ class _SettingsButtonState extends State<SettingsButton> {
           ),
           context: context,
           builder: (BuildContext context) {
-            return SettingsBottomSheet();
+            return SettingsBottomSheet(
+              inputGPTKeyController: widget.inputGPTKeyController,
+              inputElLabsKeyController: widget.inputElLabsKeyController,
+            );
           },
         );
       },

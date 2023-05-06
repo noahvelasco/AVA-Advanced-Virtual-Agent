@@ -25,14 +25,6 @@ class SettingsProvider extends ChangeNotifier {
   double get elLabsExpr => _elLabsExpr;
   double get elLabsClar => _elLabsClar;
 
-  //TODO Checks if the key is valid
-  bool isValidKey() {
-    if (_gptAPIKey == '' || _elLabsAPIKey == '') {
-      return false;
-    }
-    return true;
-  }
-
   void setGPTAPIKey(String key) {
     debugPrint("JUST SET GPT API IN PROVIDER KEY TO $key");
     _gptAPIKey = key;

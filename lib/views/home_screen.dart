@@ -24,15 +24,19 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    inputTextEditingController.setText(""); // Set initial text here
+
+    //set the initial text for the controllers here
+    inputTextEditingController.setText("");
+    inputGPTKeyController.setText("");
+    inputElLabsKeyController.setText("");
   }
 
   @override
   void dispose() {
-    inputTextEditingController
-        .dispose(); // Dispose of the controller when no longer needed
-    //inputGPTKeyController.dispose(); // Dispose of the controller when no longer needed
-    // inputElLabsKeyController.dispose(); // Dispose of the controller when no longer needed
+    // Dispose of the controller when no longer needed
+    inputTextEditingController.dispose();
+    inputGPTKeyController.dispose();
+    inputElLabsKeyController.dispose();
 
     super.dispose();
   }
@@ -70,10 +74,12 @@ class _HomeState extends State<Home> {
                         const InputPromptButton(),
                         const SizedBox(width: 15),
                         InputClearButton(
-                            controller: inputTextEditingController),
+                          controller: inputTextEditingController,
+                        ),
                         const SizedBox(width: 15),
                         InputSubmitButton(
-                            controller: inputTextEditingController),
+                          controller: inputTextEditingController,
+                        ),
                       ],
                     ),
                   ],
@@ -82,10 +88,13 @@ class _HomeState extends State<Home> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const <Widget>[
-                CreditsButton(),
-                ThemeModeButton(),
-                SettingsButton(),
+              children: <Widget>[
+                const CreditsButton(),
+                const ThemeModeButton(),
+                SettingsButton(
+                  inputGPTKeyController: inputGPTKeyController,
+                  inputElLabsKeyController: inputElLabsKeyController,
+                ),
               ],
             )
           ],

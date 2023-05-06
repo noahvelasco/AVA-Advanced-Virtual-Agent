@@ -11,15 +11,10 @@ class InputGPTKeyController extends ChangeNotifier {
 
   String get text => inputGPTKeyTextEditingController.text;
 
-  void setText(BuildContext context, String text) {
-    // final settingsProvider =
-    //     Provider.of<SettingsProvider>(context, listen: false);
-
+  void setText(String text) {
     //update controller
     inputGPTKeyTextEditingController.text = text;
-
-    //also update the settings provider
-    // settingsProvider.setGPTAPIKey(text);
+    debugPrint("InputGPTKeyController is now: $text");
     notifyListeners();
   }
 }

@@ -11,15 +11,10 @@ class InputElLabsKeyController extends ChangeNotifier {
 
   String get text => inputElLabsKeyTextEditingController.text;
 
-  void setText(BuildContext context, String text) {
-    // final settingsProvider =
-    //     Provider.of<SettingsProvider>(context, listen: false);
-
+  void setText(String text) {
     //update controller
     inputElLabsKeyTextEditingController.text = text;
-
-    //also update the settings provider
-    // settingsProvider.setElLabsAPIKey(text);
+    debugPrint("InputElLabsKeyController is now: $text");
     notifyListeners();
   }
 }
