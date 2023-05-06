@@ -4,10 +4,15 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../controllers/input_question_controller.dart';
 import '../../providers/theme_provider.dart';
+import '../bottom_sheets/prompts_bottom_sheet.dart';
 
+// ignore: must_be_immutable
 class InputPromptButton extends StatefulWidget {
-  const InputPromptButton({super.key});
+  InputQuestionController inputQuestionController;
+  // ignore: use_key_in_widget_constructors
+  InputPromptButton({required this.inputQuestionController});
 
   @override
   State<InputPromptButton> createState() => _InputPromptButtonState();
@@ -25,10 +30,6 @@ class _InputPromptButtonState extends State<InputPromptButton> {
       child: NeumorphicButton(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.025),
         minDistance: -5,
-        onPressed: () {
-          FocusManager.instance.primaryFocus?.unfocus();
-          debugPrint("TODO - Gives some prompts");
-        },
         style: NeumorphicStyle(
           lightSource: LightSource.topLeft,
           intensity: provider.theme == ThemeMode.light ? .8 : .6,
@@ -41,6 +42,26 @@ class _InputPromptButtonState extends State<InputPromptButton> {
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
         ),
+        onPressed: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+
+          showModalBottomSheet(
+              context: context,
+              backgroundColor: colorScheme.primary,
+              isScrollControlled: true,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                    color: colorScheme.secondary, strokeAlign: 5, width: 5),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(0),
+                ),
+              ),
+              builder: (BuildContext context) {
+                return PromptBottomSheet(
+                  inputQuestionController: widget.inputQuestionController,
+                );
+              });
+        },
         child: const Center(
           child: FaIcon(
             FontAwesomeIcons.lightbulb,

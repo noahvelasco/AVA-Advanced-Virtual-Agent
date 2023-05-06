@@ -71,7 +71,9 @@ class _HomeState extends State<Home> {
                     const SizedBox(height: 15),
                     Row(
                       children: <Widget>[
-                        const InputPromptButton(),
+                        InputPromptButton(
+                            inputQuestionController:
+                                inputTextEditingController),
                         const SizedBox(width: 15),
                         InputClearButton(
                           controller: inputTextEditingController,

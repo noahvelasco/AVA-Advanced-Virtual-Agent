@@ -47,6 +47,7 @@ class _SettingsButtonState extends State<SettingsButton> {
         FocusManager.instance.primaryFocus?.unfocus();
 
         showModalBottomSheet(
+          context: context,
           backgroundColor: colorScheme.primary,
           isScrollControlled: true,
           shape: RoundedRectangleBorder(
@@ -56,7 +57,6 @@ class _SettingsButtonState extends State<SettingsButton> {
               top: Radius.circular(0),
             ),
           ),
-          context: context,
           builder: (BuildContext context) {
             return SettingsBottomSheet(
               inputGPTKeyController: widget.inputGPTKeyController,
