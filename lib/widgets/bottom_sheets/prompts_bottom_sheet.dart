@@ -15,10 +15,7 @@ class PromptBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     final provider = Provider.of<ThemeProvider>(context);
 
     final List<Widget> customWidgets = [

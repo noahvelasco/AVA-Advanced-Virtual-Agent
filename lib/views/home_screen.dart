@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final InputQuestionController inputTextEditingController =
+  final InputQuestionController inputQuestionEditingController =
       InputQuestionController();
 
   final InputGPTKeyController inputGPTKeyController = InputGPTKeyController();
@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
     super.initState();
 
     //set the initial text for the controllers here
-    inputTextEditingController.setText("");
+    inputQuestionEditingController.setText("");
     inputGPTKeyController.setText("");
     inputElLabsKeyController.setText("");
   }
@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
   @override
   void dispose() {
     // Dispose of the controller when no longer needed
-    inputTextEditingController.dispose();
+    inputQuestionEditingController.dispose();
     inputGPTKeyController.dispose();
     inputElLabsKeyController.dispose();
 
@@ -67,20 +67,20 @@ class _HomeState extends State<Home> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    InputBox(controller: inputTextEditingController),
+                    InputBox(controller: inputQuestionEditingController),
                     const SizedBox(height: 15),
                     Row(
                       children: <Widget>[
                         InputPromptButton(
                             inputQuestionController:
-                                inputTextEditingController),
+                                inputQuestionEditingController),
                         const SizedBox(width: 15),
                         InputClearButton(
-                          controller: inputTextEditingController,
+                          controller: inputQuestionEditingController,
                         ),
                         const SizedBox(width: 15),
                         InputSubmitButton(
-                          controller: inputTextEditingController,
+                          controller: inputQuestionEditingController,
                         ),
                       ],
                     ),
