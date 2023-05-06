@@ -14,8 +14,8 @@
 - [x] Reads GPT-3.5-Turbo output using ElevenLabs Text-To-Speech
 - [x] Modify/Update request parameters of GPT and ElevenLabs using sliders
 - [x] About and license page
-- [ ] Modify/Update the API key's in App 
-- [ ] Validate API keys before submission
+- [x] Modify/Update the API key's in App 
+~~- [ ] Validate API keys before submission~~
 - [ ] Prompt selection
 - [ ] Custom prompt creation
 - [ ] Voice selection of up to 3 different voices
