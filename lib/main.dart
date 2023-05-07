@@ -1,4 +1,5 @@
 import 'package:ava_v2/view_models/export_view_models.dart';
+import 'package:ava_v2/views/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,9 +9,9 @@ import './views/home_screen.dart';
 import 'providers/export_providers.dart';
 
 void main() {
-  // lock the app into portrait mode
   WidgetsFlutterBinding.ensureInitialized();
 
+  // lock the app into portrait mode
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -60,8 +61,6 @@ class Ava extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               // light theme settings
-              // brightness: Brightness.light,
-
               useMaterial3: true,
 
               /* light theme color settings */
@@ -98,8 +97,6 @@ class Ava extends StatelessWidget {
             ),
             darkTheme: ThemeData(
               // dark theme settings
-              // brightness: Brightness.dark,
-
               useMaterial3: true,
 
               //changes the background color of the app thumbnail
@@ -136,7 +133,8 @@ class Ava extends StatelessWidget {
               ),
             ),
             themeMode: provider.theme,
-            home: const Home(),
+            // home: const Home(),
+            home: const OnBoardingPage(),
           );
         },
       ),

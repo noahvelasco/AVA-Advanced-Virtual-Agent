@@ -5,8 +5,12 @@ import '../widgets/home_screen/export_home_screen_widgets.dart';
 import '../controllers/input_question_controller.dart';
 import '../controllers/input_gpt_key_controller.dart';
 
+// ignore: must_be_immutable
 class Home extends StatefulWidget {
-  const Home({super.key});
+  String gptKey;
+  String elLabsKey;
+  // ignore: use_key_in_widget_constructors
+  Home({required this.gptKey, required this.elLabsKey});
 
   @override
   State<Home> createState() => _HomeState();
@@ -27,8 +31,10 @@ class _HomeState extends State<Home> {
 
     //set the initial text for the controllers here
     inputQuestionEditingController.setText("");
-    inputGPTKeyController.setText("");
-    inputElLabsKeyController.setText("");
+
+    //sets the text fields to the set keys from the onboarding page
+    inputGPTKeyController.setText(widget.gptKey);
+    inputElLabsKeyController.setText(widget.elLabsKey);
   }
 
   @override

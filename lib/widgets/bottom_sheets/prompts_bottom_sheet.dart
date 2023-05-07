@@ -112,6 +112,9 @@ class PromptBottomSheet extends StatelessWidget {
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: Column(children: [
+          const SizedBox(
+            height: 30,
+          ),
           CarouselSlider(
             items: customWidgets,
             options: CarouselOptions(
@@ -123,6 +126,9 @@ class PromptBottomSheet extends StatelessWidget {
               viewportFraction: .3,
             ),
           ),
+          const SizedBox(
+            height: 30,
+          )
         ]),
       );
     });

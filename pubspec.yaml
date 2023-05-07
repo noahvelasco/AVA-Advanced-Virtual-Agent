@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  url_launcher: ^6.1.10
+  introduction_screen: ^3.1.8
   carousel_slider: ^4.2.1
   just_audio: ^0.9.32
   http: ^0.13.6
