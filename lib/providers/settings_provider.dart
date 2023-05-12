@@ -26,13 +26,13 @@ class SettingsProvider extends ChangeNotifier {
   double get elLabsClar => _elLabsClar;
 
   void setGPTAPIKey(String key) {
-    debugPrint("JUST SET GPT API IN PROVIDER KEY TO $key");
+    debugPrint(">>>>> JUST SET GPT API IN PROVIDER KEY TO $key");
     _gptAPIKey = key;
     notifyListeners();
   }
 
   void setElLabsAPIKey(String key) {
-    debugPrint("JUST SET ELABS API IN PROVIDER KEY TO $key");
+    debugPrint(">>>>> JUST SET ELABS API IN PROVIDER KEY TO $key");
     _elLabsAPIKey = key;
     notifyListeners();
   }

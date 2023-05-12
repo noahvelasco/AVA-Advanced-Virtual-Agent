@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import './views/home_screen.dart';
 import 'providers/export_providers.dart';
 
 void main() {

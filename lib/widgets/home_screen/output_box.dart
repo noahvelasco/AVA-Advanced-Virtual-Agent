@@ -88,7 +88,7 @@ class _OutputBoxState extends State<OutputBox> {
                     colorFilter: ColorFilter.mode(
                         colorScheme.secondary, BlendMode.srcIn),
                     child: Center(
-                      child: Lottie.asset('assets/lottie/shifting_blocks.json'),
+                      child: Lottie.asset('assets/lottie/polygonal_star.json'),
                     ),
                   )
                 : RawScrollbar(

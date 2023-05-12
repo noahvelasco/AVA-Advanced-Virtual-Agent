@@ -54,7 +54,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
     );
   }
 
-  Widget _buildHeaderImage(String assetName, [double width = 350]) {
+  Widget _buildHeaderImage(String assetName, double width) {
     return Image.asset('assets/images/$assetName', width: width);
   }
 
@@ -89,7 +89,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.width;
@@ -110,7 +109,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
 
     return IntroductionScreen(
       key: introKey,
-      globalBackgroundColor: colorScheme.primary,
+      globalBackgroundColor: const Color(0xFF252525),
       allowImplicitScrolling: true,
       globalHeader: Align(
         alignment: Alignment.topLeft,
@@ -126,15 +125,14 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       pages: [
         PageViewModel(
           title: "Welcome",
-          body:
-              "Welcome to AVA! Your Advanced Virtual Agent. Let's get you set up!",
-          image: _buildLottieImage('5.json'),
+          body: "Let's get you set up!",
+          image: _buildLottieImage('polygonal_star.json', 350),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "API Keys Setup",
           body: "To use this app, you must enter your own API keys.",
-          image: _buildLottieImage('4.json', 500),
+          image: _buildLottieImage('outlined_circle.json', 500),
           decoration: pageDecoration,
           footer: SingleChildScrollView(
             child: Column(
@@ -143,7 +141,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                 Text(
                   "Required",
                   style: textTheme.bodyMedium!.copyWith(
-                      color: colorScheme.secondary,
+                      color: const Color(0xFFE7ECEF),
                       fontStyle: FontStyle.italic),
                 ),
                 Padding(
@@ -159,7 +157,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           style: NeumorphicStyle(
                             lightSource: LightSource.topLeft,
                             intensity: .8,
-                            color: colorScheme.primary,
+                            color: const Color(0xFF252525),
                             shadowDarkColor: Colors.black,
                             depth: 3,
                             shape: NeumorphicShape.flat,
@@ -169,18 +167,22 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           ),
                           child: TextField(
                             controller: inputGPTKeyController,
-                            cursorColor: colorScheme.secondary,
+                            cursorColor: const Color(0xFFE7ECEF),
                             decoration: InputDecoration(
                               contentPadding:
                                   const EdgeInsets.only(top: 10, left: 16),
                               border: InputBorder.none,
                               filled: true,
-                              fillColor: colorScheme.primary,
+                              fillColor: const Color(0xFF252525),
                               hintText: "GPT-3.5-Turbo Key",
                               hintStyle: textTheme.bodyMedium!.copyWith(
-                                  color: colorScheme.secondary.withOpacity(.5),
+                                  color:
+                                      const Color(0xFFE7ECEF).withOpacity(.5),
                                   fontStyle: FontStyle.italic),
-                              suffixIcon: const Icon(Icons.create),
+                              suffixIcon: const Icon(
+                                Icons.create,
+                                color: Color(0xFFE7ECEF),
+                              ),
                             ),
                             style: textTheme.bodyMedium,
                             enabled: true,
@@ -206,7 +208,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                             lightSource: LightSource.topLeft,
                             intensity:
                                 provider.theme == ThemeMode.light ? .8 : .6,
-                            color: colorScheme.primary,
+                            color: const Color(0xFF252525),
                             shadowDarkColor: Colors.black,
                             shadowLightColorEmboss: Colors.white,
                             shadowDarkColorEmboss: Colors.black,
@@ -218,10 +220,13 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const <Widget>[
-                              Text("GET KEY"),
+                              Text("GET KEY",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Color(0xFFE7ECEF))),
                               FaIcon(
                                 FontAwesomeIcons.arrowRightToBracket,
                                 size: 15,
+                                color: Color(0xFFE7ECEF),
                               ),
                             ],
                           ),
@@ -238,7 +243,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                 Text(
                   "Optional",
                   style: textTheme.bodyMedium!.copyWith(
-                      color: colorScheme.secondary,
+                      color: const Color(0xFFE7ECEF),
                       fontStyle: FontStyle.italic),
                 ),
                 Padding(
@@ -253,7 +258,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           style: NeumorphicStyle(
                             lightSource: LightSource.topLeft,
                             intensity: .8,
-                            color: colorScheme.primary,
+                            color: const Color(0xFF252525),
                             shadowDarkColor: Colors.black,
                             depth: 3,
                             shape: NeumorphicShape.flat,
@@ -263,18 +268,20 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           ),
                           child: TextField(
                             controller: inputElLabsKeyController,
-                            cursorColor: colorScheme.secondary,
+                            cursorColor: const Color(0xFFE7ECEF),
                             decoration: InputDecoration(
                               contentPadding:
                                   const EdgeInsets.only(top: 10, left: 16),
                               border: InputBorder.none,
                               filled: true,
-                              fillColor: colorScheme.primary,
+                              fillColor: const Color(0xFF252525),
                               hintText: "ElevenLabs Key (Optional)",
                               hintStyle: textTheme.bodyMedium!.copyWith(
-                                  color: colorScheme.secondary.withOpacity(.5),
+                                  color:
+                                      const Color(0xFFE7ECEF).withOpacity(.5),
                                   fontStyle: FontStyle.italic),
-                              suffixIcon: const Icon(Icons.create),
+                              suffixIcon: const Icon(Icons.create,
+                                  color: Color(0xFFE7ECEF)),
                             ),
                             style: textTheme.bodyMedium,
                             enabled: true,
@@ -298,7 +305,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                             lightSource: LightSource.topLeft,
                             intensity:
                                 provider.theme == ThemeMode.light ? .8 : .6,
-                            color: colorScheme.primary,
+                            color: const Color(0xFF252525),
                             shadowDarkColor: Colors.black,
                             shadowLightColorEmboss: Colors.white,
                             shadowDarkColorEmboss: Colors.black,
@@ -310,10 +317,13 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const <Widget>[
-                              Text("GET KEY"),
+                              Text("GET KEY",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Color(0xFFE7ECEF))),
                               FaIcon(
                                 FontAwesomeIcons.arrowRightToBracket,
                                 size: 15,
+                                color: Color(0xFFE7ECEF),
                               ),
                             ],
                           ),
@@ -334,21 +344,21 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           title: "Prompts",
           body:
               "Enhance your experience in AVA by using the prompts feature or by creating your own.",
-          image: _buildLottieImage('3.json'),
+          image: _buildLottieImage('triple_ven_diagram.json'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Adjusting API Parameters",
           body:
-              "Fine-tune your experience in AVA by adjusting API parameters with our settings sliders.",
-          image: _buildLottieImage('2.json'),
+              "Fine-tune your experience in AVA by adjusting your API parameters with the sliders in the settings section.",
+          image: _buildLottieImage('triangles.json'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Thank you for using AVA!",
+          title: "Enjoy!",
           body:
               "Please leave a review on the App Store and share this app with your friends!",
-          image: _buildLottieImage('1.json'),
+          image: _buildLottieImage('slinky.json'),
           decoration: pageDecoration,
         ),
       ],
@@ -369,6 +379,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
         color: Color(0xFFBDBDBD),
+        activeColor: Color(0xFF252525),
         activeSize: Size(22.0, 10.0),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),

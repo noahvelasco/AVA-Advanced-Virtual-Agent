@@ -27,6 +27,7 @@
 - [x] Modify/Update the API key's in App
 - [x] Introduction page for initial user setup
 - [ ] Validate API keys before submission
+- [ ] Store user settings and API keys locally using sqflite
 - [ ] Prompt selection
 - [ ] Custom prompt creation
 

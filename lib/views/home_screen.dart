@@ -53,6 +53,7 @@ class _HomeState extends State<Home> {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       appBar: null,
       body: Container(
         color: colorScheme.background,

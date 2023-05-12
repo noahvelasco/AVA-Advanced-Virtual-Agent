@@ -1,5 +1,4 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/theme_provider.dart';
@@ -37,10 +36,9 @@ class _ThemeModeButtonState extends State<ThemeModeButton> {
         FocusManager.instance.primaryFocus?.unfocus();
         provider.toggleTheme();
       },
-      child: FaIcon(
-        provider.theme == ThemeMode.light
-            ? FontAwesomeIcons.moon
-            : FontAwesomeIcons.sun,
+      child: Icon(
+        provider.theme == ThemeMode.light ? Icons.mode_night : Icons.sunny,
+        size: 30,
       ),
     );
   }

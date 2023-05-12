@@ -1,7 +1,6 @@
 // ignore: unnecessary_import
 import 'package:ava_v2/providers/export_providers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_models/export_view_models.dart';
@@ -48,17 +47,14 @@ class _OutputTTSButtonState extends State<OutputTTSButton> {
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
         ),
         child: Center(
-            child: isLoadingVoiceProvider.isLoading
-                ? ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                        colorScheme.secondary, BlendMode.srcIn),
-                    child: Center(
-                      child: Lottie.asset(
-                        'assets/lottie/shifting_blocks.json',
-                      ),
-                    ),
-                  )
-                : const Icon(Icons.volume_up_outlined, size: 25)),
+          child: isLoadingVoiceProvider.isLoading
+              ? LinearProgressIndicator(
+                  color: colorScheme.secondary,
+                  backgroundColor: colorScheme.primary,
+                  minHeight: 2,
+                )
+              : const Icon(Icons.volume_up_outlined, size: 25),
+        ),
       ),
     );
   }

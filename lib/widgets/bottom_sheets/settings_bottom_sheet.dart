@@ -273,8 +273,9 @@ class SettingsBottomSheet extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: height * .03),
               Text(
-                "Voice Lifelessness",
+                "Voice Stability",
                 style: textTheme.bodyMedium,
               ),
               Row(
@@ -313,8 +314,9 @@ class SettingsBottomSheet extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: height * .03),
               Text(
-                "Voice Generated Clarity",
+                "Voice Clarity + Similarity Enhancement",
                 style: textTheme.bodyMedium,
               ),
               Row(
