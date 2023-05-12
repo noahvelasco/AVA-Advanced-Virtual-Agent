@@ -40,8 +40,8 @@
 ---
 
 ## Build Info
-* Flutter 3.7.3
-* Dart 2.19.2
+* Flutter 3.7.12
+* Dart 2.19.6
 * DevTools 2.20.1
 
 
