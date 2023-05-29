@@ -80,14 +80,12 @@ class _InputBoxState extends State<InputBox> {
                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   decoration: InputDecoration(
                     hintStyle: TextStyle(
-                      color: colorScheme.secondary.withOpacity(.3),
-                      fontSize: 16.0,
-                    ),
+                        color: colorScheme.secondary.withOpacity(.3),
+                        fontStyle: FontStyle.italic),
                     border: InputBorder.none,
                     hintText: 'Who was socrates?',
                   ),
-                  style: textTheme.bodyMedium!
-                      .copyWith(fontStyle: FontStyle.italic),
+                  style: textTheme.bodyMedium,
                 ),
               ),
             ),
