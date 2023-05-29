@@ -1,13 +1,17 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
+import '../database/api_key_storage_helper.dart';
 import '../providers/export_providers.dart';
 
 class GPTAPIViewModel extends ChangeNotifier {
-  Future<void> fetchGPTResponse(BuildContext context, String input) async {
+  Future<void> fetchGPTResponse(
+    BuildContext context,
+    APIKeyStorageHelper apiStorage,
+    String input,
+  ) async {
     /*
      
     Initialize all the providers we need first to get needed fields or to update fields
@@ -33,7 +37,7 @@ class GPTAPIViewModel extends ChangeNotifier {
     chatHistoryProvider.addUserPrompt(input);
 
     //only supporting gpt-3.5-turbo for now
-    String apiKey = settingsProvider.gptAPIKey;
+    String apiKey = (await apiStorage.getGPTAPIKey()) ?? "";
     String apiUrl = 'https://api.openai.com/v1/chat/completions';
 
     Map<String, String> headers = {

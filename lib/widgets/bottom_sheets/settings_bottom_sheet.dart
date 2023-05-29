@@ -1,18 +1,44 @@
-import 'package:ava_v2/controllers/export_controllers.dart';
 import 'package:ava_v2/providers/export_providers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
-class SettingsBottomSheet extends StatelessWidget {
-  InputGPTKeyController inputGPTKeyController;
-  InputElLabsKeyController inputElLabsKeyController;
+import '../../database/api_key_storage_helper.dart';
 
+// ignore: must_be_immutable
+class SettingsBottomSheet extends StatefulWidget {
+  final APIKeyStorageHelper apiKeyStorageHelper;
   // ignore: use_key_in_widget_constructors
-  SettingsBottomSheet(
-      {required this.inputGPTKeyController,
-      required this.inputElLabsKeyController});
+  const SettingsBottomSheet({required this.apiKeyStorageHelper});
+
+  @override
+  State<SettingsBottomSheet> createState() => _SettingsBottomSheetState();
+}
+
+class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
+  late TextEditingController inputGPTKeyController = TextEditingController();
+  late TextEditingController inputElLabsKeyController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    initializeControllers();
+    //widget.apiKeyStorageHelper.getElevenLabsKey() as String;
+  }
+
+  @override
+  void dispose() {
+    inputGPTKeyController.dispose();
+    inputElLabsKeyController.dispose();
+    super.dispose();
+  }
+
+  void initializeControllers() async {
+    inputGPTKeyController.text =
+        (await widget.apiKeyStorageHelper.getGPTAPIKey()) ?? "";
+    inputElLabsKeyController.text =
+        (await widget.apiKeyStorageHelper.getELAPIKey()) ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +94,7 @@ class SettingsBottomSheet extends StatelessWidget {
                           oppositeShadowLightSource: false,
                         ),
                         child: TextField(
-                          controller: inputGPTKeyController
-                              .inputGPTKeyTextEditingController,
+                          controller: inputGPTKeyController,
                           cursorColor: colorScheme.secondary,
                           decoration: InputDecoration(
                             contentPadding:
@@ -87,12 +112,21 @@ class SettingsBottomSheet extends StatelessWidget {
                           enabled: true,
                           onEditingComplete: () {
                             //autosave the anytext removed or added from this textfield
-                            inputGPTKeyController.setText(inputGPTKeyController
-                                .inputGPTKeyTextEditingController.text);
+                            // widget.inputGPTKeyController.setText(widget
+                            //     .inputGPTKeyController
+                            //     .inputGPTKeyTextEditingController
+                            //     .text);
 
                             //then save the key into the settings provider - this will update the settings fields
-                            settingsProvider.setGPTAPIKey(inputGPTKeyController
-                                .inputGPTKeyTextEditingController.text);
+                            // settingsProvider.setGPTAPIKey(widget
+                            //     .inputGPTKeyController
+                            //     .inputGPTKeyTextEditingController
+                            //     .text);
+
+                            //TODO
+                            widget.apiKeyStorageHelper
+                                .saveGPTAPIKey(inputGPTKeyController.text);
+
                             FocusManager.instance.primaryFocus?.unfocus();
                           },
                         ),
@@ -127,8 +161,11 @@ class SettingsBottomSheet extends StatelessWidget {
                         onPressed: () {
                           //autosave the update
                           FocusManager.instance.primaryFocus?.unfocus();
-                          inputGPTKeyController.inputGPTKeyTextEditingController
-                              .clear();
+                          // widget.inputGPTKeyController
+                          //     .inputGPTKeyTextEditingController
+                          //     .clear();
+                          inputGPTKeyController.clear();
+                          widget.apiKeyStorageHelper.deleteGPTAPIKey();
                         },
                       ),
                     ),
@@ -157,8 +194,7 @@ class SettingsBottomSheet extends StatelessWidget {
                           oppositeShadowLightSource: false,
                         ),
                         child: TextField(
-                          controller: inputElLabsKeyController
-                              .inputElLabsKeyTextEditingController,
+                          controller: inputElLabsKeyController,
                           cursorColor: colorScheme.secondary,
                           decoration: InputDecoration(
                             contentPadding:
@@ -176,14 +212,19 @@ class SettingsBottomSheet extends StatelessWidget {
                           enabled: true,
                           onEditingComplete: () {
                             //autosave the anytext removed or added from this textfield
-                            inputElLabsKeyController.setText(
-                                inputElLabsKeyController
-                                    .inputElLabsKeyTextEditingController.text);
+                            // widget.inputElLabsKeyController.setText(widget
+                            //     .inputElLabsKeyController
+                            //     .inputElLabsKeyTextEditingController
+                            //     .text);
 
                             //then save the key into the settings provider - this will update the settings fields
-                            settingsProvider.setElLabsAPIKey(
-                                inputElLabsKeyController
-                                    .inputElLabsKeyTextEditingController.text);
+                            // settingsProvider.setElLabsAPIKey(widget
+                            //     .inputElLabsKeyController
+                            //     .inputElLabsKeyTextEditingController
+                            //     .text);
+
+                            widget.apiKeyStorageHelper
+                                .saveELAPIKey(inputElLabsKeyController.text);
                             FocusManager.instance.primaryFocus?.unfocus();
                           },
                         ),
@@ -217,9 +258,11 @@ class SettingsBottomSheet extends StatelessWidget {
                         ),
                         onPressed: () {
                           FocusManager.instance.primaryFocus?.unfocus();
-                          inputElLabsKeyController
-                              .inputElLabsKeyTextEditingController
-                              .clear();
+                          // widget.inputElLabsKeyController
+                          //     .inputElLabsKeyTextEditingController
+                          //     .clear();
+                          inputElLabsKeyController.clear();
+                          widget.apiKeyStorageHelper.deleteELAPIKey();
                         },
                       ),
                     ),

@@ -5,14 +5,22 @@ import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../controllers/input_question_controller.dart';
 
+import '../../database/api_key_storage_helper.dart';
 import '../../providers/theme_provider.dart';
 import '../../view_models/gpt_api_view_model.dart';
 
 class InputSubmitButton extends StatefulWidget {
+  //Is being passed down from home and will be sent to "fetchGPTResponse()"
+  final APIKeyStorageHelper apiKeyStorageHelper;
+
   //Text editing controller is being passed into here and will be 'controller'
   final InputQuestionController controller;
+
   // ignore: use_key_in_widget_constructors
-  const InputSubmitButton({required this.controller});
+  const InputSubmitButton({
+    required this.apiKeyStorageHelper,
+    required this.controller,
+  });
 
   @override
   State<InputSubmitButton> createState() => _InputSubmitButtonState();
@@ -34,7 +42,7 @@ class _InputSubmitButtonState extends State<InputSubmitButton> {
         minDistance: -5,
         onPressed: () {
           FocusManager.instance.primaryFocus?.unfocus();
-          gptAPIViewModel.fetchGPTResponse(context,
+          gptAPIViewModel.fetchGPTResponse(context, widget.apiKeyStorageHelper,
               widget.controller.inputQuestionTextEditingController.text);
         },
         style: NeumorphicStyle(

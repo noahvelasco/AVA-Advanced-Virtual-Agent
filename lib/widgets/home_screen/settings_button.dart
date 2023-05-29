@@ -1,19 +1,17 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '../../controllers/export_controllers.dart';
+import '../../database/api_key_storage_helper.dart';
 import '../bottom_sheets/settings_bottom_sheet.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/theme_provider.dart';
 
+// ignore: must_be_immutable
 class SettingsButton extends StatefulWidget {
-  InputGPTKeyController inputGPTKeyController;
-  InputElLabsKeyController inputElLabsKeyController;
+  APIKeyStorageHelper apiKeyStorageHelper;
 
   // ignore: use_key_in_widget_constructors
-  SettingsButton(
-      {required this.inputGPTKeyController,
-      required this.inputElLabsKeyController});
+  SettingsButton({required this.apiKeyStorageHelper});
 
   @override
   State<SettingsButton> createState() => _SettingsButtonState();
@@ -59,8 +57,7 @@ class _SettingsButtonState extends State<SettingsButton> {
           ),
           builder: (BuildContext context) {
             return SettingsBottomSheet(
-              inputGPTKeyController: widget.inputGPTKeyController,
-              inputElLabsKeyController: widget.inputElLabsKeyController,
+              apiKeyStorageHelper: widget.apiKeyStorageHelper,
             );
           },
         );

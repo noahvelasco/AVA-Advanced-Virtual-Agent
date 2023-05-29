@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'database/api_key_storage_helper.dart';
 import 'providers/export_providers.dart';
+import 'views/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,11 +19,17 @@ void main() {
   ]);
 
   //run the app
-  runApp(const Ava());
+  runApp(Ava());
 }
 
 class Ava extends StatelessWidget {
-  const Ava({Key? key}) : super(key: key);
+  Ava({Key? key}) : super(key: key);
+
+  /*
+  Secure storage created at root of widget tree so its available in 
+  onboarding_screen.dart & home_screen.dart for both the api keys.
+  */
+  final APIKeyStorageHelper apiKeyStorageHelper = APIKeyStorageHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +140,13 @@ class Ava extends StatelessWidget {
               ),
             ),
             themeMode: provider.theme,
-            // home: const Home(),
-            home: const OnBoardingPage(),
+            home: Home(
+              //pass the same secure storage object down to home now so we can print this in the settings section
+              apiKeyStorageHelper: apiKeyStorageHelper,
+            ),
+            // home: OnBoardingPage(
+            //   apiKeyStorageHelper: apiKeyStorageHelper,
+            // ),
           );
         },
       ),

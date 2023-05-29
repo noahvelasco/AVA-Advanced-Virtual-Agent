@@ -8,8 +8,13 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../database/api_key_storage_helper.dart';
+
 class OnBoardingPage extends StatefulWidget {
-  const OnBoardingPage({Key? key}) : super(key: key);
+  //APIKeyStorageHelper below is being given from the main.dart.
+  final APIKeyStorageHelper apiKeyStorageHelper;
+  // ignore: use_key_in_widget_constructors
+  const OnBoardingPage({required this.apiKeyStorageHelper});
 
   @override
   OnBoardingPageState createState() => OnBoardingPageState();
@@ -17,8 +22,8 @@ class OnBoardingPage extends StatefulWidget {
 
 class OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
-  TextEditingController inputGPTKeyController = TextEditingController();
-  TextEditingController inputElLabsKeyController = TextEditingController();
+  late TextEditingController inputGPTKeyController = TextEditingController();
+  late TextEditingController inputElLabsKeyController = TextEditingController();
 
   @override
   void initState() {
@@ -47,8 +52,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => Home(
-          gptKey: inputGPTKeyController.text,
-          elLabsKey: inputElLabsKeyController.text,
+          //pass the same secure storage object down to home now so we can print this in the settings section
+          apiKeyStorageHelper: widget.apiKeyStorageHelper,
         ),
       ),
     );
@@ -58,17 +63,19 @@ class OnBoardingPageState extends State<OnBoardingPage> {
     return Image.asset('assets/images/$assetName', width: width);
   }
 
-  Widget _buildLottieImage(String assetName, [double height = 350]) {
+  Widget _buildLottieImage(String assetName, bool rep, [double height = 350]) {
     return Center(
       child: ColorFiltered(
-          colorFilter: const ColorFilter.mode(
-            Colors.white,
-            BlendMode.srcIn,
-          ),
-          child: Lottie.asset(
-            'assets/lottie/$assetName',
-            height: height,
-          )),
+        colorFilter: const ColorFilter.mode(
+          Colors.white,
+          BlendMode.srcIn,
+        ),
+        child: Lottie.asset(
+          'assets/lottie/$assetName',
+          height: height,
+          repeat: rep,
+        ),
+      ),
     );
   }
 
@@ -94,7 +101,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
     double height = MediaQuery.of(context).size.width;
 
     final provider = Provider.of<ThemeProvider>(context);
-    final settingsProvider = Provider.of<SettingsProvider>(context);
+    // final settingsProvider = Provider.of<SettingsProvider>(context);
 
     PageDecoration pageDecoration = PageDecoration(
       titleTextStyle: titleStyle,
@@ -126,239 +133,275 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Welcome",
           body: "Let's get you set up!",
-          image: _buildLottieImage('polygonal_star.json', 350),
+          image: _buildLottieImage('polygonal_star.json', true, 350),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "API Keys Setup",
-          body: "To use this app, you must enter your own API keys.",
-          image: _buildLottieImage('outlined_circle.json', 500),
+          title: "GPT API Key Setup",
+          body: "Enter your OpenAI GPT-3.5-Turbo Key",
+          image: _buildLottieImage('outlined_circle.json', true, 500),
           decoration: pageDecoration,
-          footer: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  "Required",
-                  style: textTheme.bodyMedium!.copyWith(
-                      color: const Color(0xFFE7ECEF),
-                      fontStyle: FontStyle.italic),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      //------------------------------------------------------------------------------------- GPT KEY
-                      SizedBox(
-                        width: width * .5,
-                        height: height * .1,
-                        child: Neumorphic(
-                          style: NeumorphicStyle(
-                            lightSource: LightSource.topLeft,
-                            intensity: .8,
-                            color: const Color(0xFF252525),
-                            shadowDarkColor: Colors.black,
-                            depth: 3,
-                            shape: NeumorphicShape.flat,
-                            boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(40)),
-                            oppositeShadowLightSource: false,
-                          ),
-                          child: TextField(
-                            controller: inputGPTKeyController,
-                            cursorColor: const Color(0xFFE7ECEF),
-                            decoration: InputDecoration(
-                              contentPadding:
-                                  const EdgeInsets.only(top: 10, left: 16),
-                              border: InputBorder.none,
-                              filled: true,
-                              fillColor: const Color(0xFF252525),
-                              hintText: "GPT-3.5-Turbo Key",
-                              hintStyle: textTheme.bodyMedium!.copyWith(
-                                  color:
-                                      const Color(0xFFE7ECEF).withOpacity(.5),
-                                  fontStyle: FontStyle.italic),
-                              suffixIcon: const Icon(
-                                Icons.create,
-                                color: Color(0xFFE7ECEF),
-                              ),
+          footer: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    //------------------------------------------------------------------------------------- GPT KEY
+                    SizedBox(
+                      width: width * .5,
+                      height: height * .1,
+                      child: Neumorphic(
+                        style: NeumorphicStyle(
+                          lightSource: LightSource.topLeft,
+                          intensity: .8,
+                          color: const Color(0xFF252525),
+                          shadowDarkColor: Colors.black,
+                          depth: 3,
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(40)),
+                          oppositeShadowLightSource: false,
+                        ),
+                        child: TextField(
+                          controller: inputGPTKeyController,
+                          cursorColor: const Color(0xFFE7ECEF),
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.only(top: 10, left: 16),
+                            border: InputBorder.none,
+                            filled: true,
+                            fillColor: const Color(0xFF252525),
+                            hintText: "sk-xxx...",
+                            hintStyle: textTheme.bodyMedium!.copyWith(
+                                color: const Color(0xFFE7ECEF).withOpacity(.5),
+                                fontStyle: FontStyle.italic),
+                            suffixIcon: const Icon(
+                              Icons.create,
+                              color: Color(0xFFE7ECEF),
                             ),
-                            style: textTheme.bodyMedium,
-                            enabled: true,
-                            onEditingComplete: () {
-                              //autosave the anytext removed or added from this textfield
-                              settingsProvider
-                                  .setGPTAPIKey(inputGPTKeyController.text);
-                              FocusManager.instance.primaryFocus?.unfocus();
+                          ),
+                          style: textTheme.bodyMedium,
+                          enabled: true,
+                          onEditingComplete: () async {
+                            //autosave the anytext removed or added from this textfield
+                            // settingsProvider
+                            //     .setGPTAPIKey(inputGPTKeyController.text);
+                            await widget.apiKeyStorageHelper
+                                .saveGPTAPIKey(inputGPTKeyController.text);
+                            FocusManager.instance.primaryFocus?.unfocus();
 
-                              //pop up telling the user it was saved
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: width * 0.3,
-                        height: height * 0.1,
-                        child: NeumorphicButton(
-                          padding: EdgeInsets.all(
-                              MediaQuery.of(context).size.width * 0.025),
-                          minDistance: -5,
-                          style: NeumorphicStyle(
-                            lightSource: LightSource.topLeft,
-                            intensity:
-                                provider.theme == ThemeMode.light ? .8 : .6,
-                            color: const Color(0xFF252525),
-                            shadowDarkColor: Colors.black,
-                            shadowLightColorEmboss: Colors.white,
-                            shadowDarkColorEmboss: Colors.black,
-                            depth: 2,
-                            shape: NeumorphicShape.flat,
-                            boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(20)),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const <Widget>[
-                              Text("GET KEY",
-                                  style: TextStyle(
-                                      fontSize: 16, color: Color(0xFFE7ECEF))),
-                              FaIcon(
-                                FontAwesomeIcons.arrowRightToBracket,
-                                size: 15,
-                                color: Color(0xFFE7ECEF),
-                              ),
-                            ],
-                          ),
-                          onPressed: () {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            _launchGPTUrl();
+                            //pop up telling the user it was saved
                           },
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                //------------------------------------------------------------------------------------- EL LABS KEY
-                Text(
-                  "Optional",
-                  style: textTheme.bodyMedium!.copyWith(
-                      color: const Color(0xFFE7ECEF),
-                      fontStyle: FontStyle.italic),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: width * .5,
-                        height: height * .1,
-                        child: Neumorphic(
-                          style: NeumorphicStyle(
-                            lightSource: LightSource.topLeft,
-                            intensity: .8,
-                            color: const Color(0xFF252525),
-                            shadowDarkColor: Colors.black,
-                            depth: 3,
-                            shape: NeumorphicShape.flat,
-                            boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(40)),
-                            oppositeShadowLightSource: false,
-                          ),
-                          child: TextField(
-                            controller: inputElLabsKeyController,
-                            cursorColor: const Color(0xFFE7ECEF),
-                            decoration: InputDecoration(
-                              contentPadding:
-                                  const EdgeInsets.only(top: 10, left: 16),
-                              border: InputBorder.none,
-                              filled: true,
-                              fillColor: const Color(0xFF252525),
-                              hintText: "ElevenLabs Key (Optional)",
-                              hintStyle: textTheme.bodyMedium!.copyWith(
-                                  color:
-                                      const Color(0xFFE7ECEF).withOpacity(.5),
-                                  fontStyle: FontStyle.italic),
-                              suffixIcon: const Icon(Icons.create,
-                                  color: Color(0xFFE7ECEF)),
+                    ),
+                    SizedBox(
+                      width: width * 0.3,
+                      height: height * 0.1,
+                      child: NeumorphicButton(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * 0.025),
+                        minDistance: -5,
+                        style: NeumorphicStyle(
+                          lightSource: LightSource.topLeft,
+                          intensity:
+                              provider.theme == ThemeMode.light ? .8 : .6,
+                          color: const Color(0xFF252525),
+                          shadowDarkColor: Colors.black,
+                          shadowLightColorEmboss: Colors.white,
+                          shadowDarkColorEmboss: Colors.black,
+                          depth: 2,
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(20)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const <Widget>[
+                            Text("GET KEY",
+                                style: TextStyle(
+                                    fontSize: 16, color: Color(0xFFE7ECEF))),
+                            FaIcon(
+                              FontAwesomeIcons.arrowRightToBracket,
+                              size: 15,
+                              color: Color(0xFFE7ECEF),
                             ),
-                            style: textTheme.bodyMedium,
-                            enabled: true,
-                            onEditingComplete: () {
-                              //autosave the anytext removed or added from this textfield
-                              settingsProvider.setElLabsAPIKey(
-                                  inputElLabsKeyController.text);
-                              FocusManager.instance.primaryFocus?.unfocus();
-                            },
-                          ),
+                          ],
                         ),
+                        onPressed: () {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          _launchGPTUrl();
+                        },
                       ),
-                      SizedBox(
-                        width: width * 0.3,
-                        height: height * 0.1,
-                        child: NeumorphicButton(
-                          padding: EdgeInsets.all(
-                              MediaQuery.of(context).size.width * 0.025),
-                          minDistance: -5,
-                          style: NeumorphicStyle(
-                            lightSource: LightSource.topLeft,
-                            intensity:
-                                provider.theme == ThemeMode.light ? .8 : .6,
-                            color: const Color(0xFF252525),
-                            shadowDarkColor: Colors.black,
-                            shadowLightColorEmboss: Colors.white,
-                            shadowDarkColorEmboss: Colors.black,
-                            depth: 2,
-                            shape: NeumorphicShape.flat,
-                            boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(20)),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: width * 0.9,
+                height: height * 0.1,
+                child: NeumorphicButton(
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.025),
+                  minDistance: -5,
+                  style: NeumorphicStyle(
+                    lightSource: LightSource.topLeft,
+                    intensity: provider.theme == ThemeMode.light ? .8 : .6,
+                    color: const Color(0xFF252525),
+                    shadowDarkColor: Colors.black,
+                    shadowLightColorEmboss: Colors.white,
+                    shadowDarkColorEmboss: Colors.black,
+                    depth: 2,
+                    shape: NeumorphicShape.flat,
+                    boxShape:
+                        NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                  ),
+                  child: const Center(
+                    //animation for the confirmation
+                    child: FaIcon(
+                      FontAwesomeIcons.check,
+                      size: 20,
+                      color: Color(0xFFE7ECEF),
+                    ),
+                  ),
+                  onPressed: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        PageViewModel(
+          title: "ElevenLabs API Key Setup",
+          body: "Enter your ElevenLabs API Key",
+          image: _buildLottieImage('outlined_circle.json', true, 500),
+          decoration: pageDecoration,
+          footer: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "Optional",
+                style: textTheme.bodyMedium!.copyWith(
+                    color: const Color(0xFFE7ECEF),
+                    fontStyle: FontStyle.italic),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: width * .5,
+                      height: height * .1,
+                      child: Neumorphic(
+                        style: NeumorphicStyle(
+                          lightSource: LightSource.topLeft,
+                          intensity: .8,
+                          color: const Color(0xFF252525),
+                          shadowDarkColor: Colors.black,
+                          depth: 3,
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(40)),
+                          oppositeShadowLightSource: false,
+                        ),
+                        child: TextField(
+                          controller: inputElLabsKeyController,
+                          cursorColor: const Color(0xFFE7ECEF),
+                          decoration: InputDecoration(
+                            contentPadding:
+                                const EdgeInsets.only(top: 10, left: 16),
+                            border: InputBorder.none,
+                            filled: true,
+                            fillColor: const Color(0xFF252525),
+                            hintText: "ElevenLabs Key (Optional)",
+                            hintStyle: textTheme.bodyMedium!.copyWith(
+                                color: const Color(0xFFE7ECEF).withOpacity(.5),
+                                fontStyle: FontStyle.italic),
+                            suffixIcon: const Icon(Icons.create,
+                                color: Color(0xFFE7ECEF)),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const <Widget>[
-                              Text("GET KEY",
-                                  style: TextStyle(
-                                      fontSize: 16, color: Color(0xFFE7ECEF))),
-                              FaIcon(
-                                FontAwesomeIcons.arrowRightToBracket,
-                                size: 15,
-                                color: Color(0xFFE7ECEF),
-                              ),
-                            ],
-                          ),
-                          onPressed: () {
+                          style: textTheme.bodyMedium,
+                          enabled: true,
+                          onEditingComplete: () async {
+                            //autosave the anytext removed or added from this textfield
+                            // settingsProvider
+                            //     .setElLabsAPIKey(inputElLabsKeyController.text);
+                            await widget.apiKeyStorageHelper
+                                .saveELAPIKey(inputElLabsKeyController.text);
                             FocusManager.instance.primaryFocus?.unfocus();
-                            _launchELUrl();
                           },
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      width: width * 0.3,
+                      height: height * 0.1,
+                      child: NeumorphicButton(
+                        padding: EdgeInsets.all(
+                            MediaQuery.of(context).size.width * 0.025),
+                        minDistance: -5,
+                        style: NeumorphicStyle(
+                          lightSource: LightSource.topLeft,
+                          intensity:
+                              provider.theme == ThemeMode.light ? .8 : .6,
+                          color: const Color(0xFF252525),
+                          shadowDarkColor: Colors.black,
+                          shadowLightColorEmboss: Colors.white,
+                          shadowDarkColorEmboss: Colors.black,
+                          depth: 2,
+                          shape: NeumorphicShape.flat,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(20)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const <Widget>[
+                            Text("GET KEY",
+                                style: TextStyle(
+                                    fontSize: 16, color: Color(0xFFE7ECEF))),
+                            FaIcon(
+                              FontAwesomeIcons.arrowRightToBracket,
+                              size: 15,
+                              color: Color(0xFFE7ECEF),
+                            ),
+                          ],
+                        ),
+                        onPressed: () {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          _launchELUrl();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         PageViewModel(
           title: "Prompts",
           body:
               "Enhance your experience in AVA by using the prompts feature or by creating your own.",
-          image: _buildLottieImage('triple_ven_diagram.json'),
+          image: _buildLottieImage('triple_ven_diagram.json', true),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Adjusting API Parameters",
           body:
               "Fine-tune your experience in AVA by adjusting your API parameters with the sliders in the settings section.",
-          image: _buildLottieImage('triangles.json'),
+          image: _buildLottieImage('triangles.json', true),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Enjoy!",
           body:
               "Please leave a review on the App Store and share this app with your friends!",
-          image: _buildLottieImage('slinky.json'),
+          image: _buildLottieImage('slinky.json', true),
           decoration: pageDecoration,
         ),
       ],

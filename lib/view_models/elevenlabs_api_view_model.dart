@@ -1,3 +1,4 @@
+import 'package:ava_v2/database/api_key_storage_helper.dart';
 import 'package:ava_v2/providers/export_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -9,7 +10,10 @@ import 'package:provider/provider.dart';
 
 class ELAPIViewModel extends ChangeNotifier {
 //For the Text To Speech
-  Future<void> playTextToSpeech(BuildContext context) async {
+  Future<void> playTextToSpeech(
+    BuildContext context,
+    APIKeyStorageHelper apiStorage,
+  ) async {
     //display the loading icon while we wait for request
     // setState(() {
     //   _isLoadingVoice = true; //progress indicator
@@ -28,7 +32,7 @@ class ELAPIViewModel extends ChangeNotifier {
 
     isLoadingVoiceProvider.setIsLoading(true);
 
-    String apiKey = settingsProvider.elevenLabsAPIKey;
+    String apiKey = (await apiStorage.getELAPIKey()) ?? "";
     String url =
         'https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM';
     final response = await http.post(

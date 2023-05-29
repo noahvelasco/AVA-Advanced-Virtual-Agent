@@ -3,10 +3,14 @@ import 'package:ava_v2/providers/export_providers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
+import '../../database/api_key_storage_helper.dart';
 import '../../view_models/export_view_models.dart';
 
 class OutputTTSButton extends StatefulWidget {
-  const OutputTTSButton({super.key});
+  //Is being passed down from home and will be sent to "fetchGPTResponse()"
+  final APIKeyStorageHelper apiKeyStorageHelper;
+
+  OutputTTSButton({required this.apiKeyStorageHelper});
 
   @override
   State<OutputTTSButton> createState() => _OutputTTSButtonState();
@@ -32,7 +36,10 @@ class _OutputTTSButtonState extends State<OutputTTSButton> {
         minDistance: -5,
         onPressed: () {
           FocusManager.instance.primaryFocus?.unfocus();
-          gptAPIViewModel.playTextToSpeech(context);
+          gptAPIViewModel.playTextToSpeech(
+            context,
+            widget.apiKeyStorageHelper,
+          );
         },
         style: NeumorphicStyle(
           lightSource: LightSource.topLeft,

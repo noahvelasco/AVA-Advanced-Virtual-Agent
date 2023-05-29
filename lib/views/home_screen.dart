@@ -1,48 +1,48 @@
 import 'package:flutter/material.dart';
 
-import '../controllers/input_ellabs_key_controller.dart';
+import '../database/api_key_storage_helper.dart';
 import '../widgets/home_screen/export_home_screen_widgets.dart';
 import '../controllers/input_question_controller.dart';
-import '../controllers/input_gpt_key_controller.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
-  String gptKey;
-  String elLabsKey;
+  final APIKeyStorageHelper apiKeyStorageHelper;
   // ignore: use_key_in_widget_constructors
-  Home({required this.gptKey, required this.elLabsKey});
+  const Home({required this.apiKeyStorageHelper});
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  final InputQuestionController inputQuestionEditingController =
-      InputQuestionController();
+  late InputQuestionController inputQuestionEditingController;
 
-  final InputGPTKeyController inputGPTKeyController = InputGPTKeyController();
+  // final InputGPTKeyController inputGPTKeyController = InputGPTKeyController();
 
-  final InputElLabsKeyController inputElLabsKeyController =
-      InputElLabsKeyController();
+  // final InputElLabsKeyController inputElLabsKeyController =
+  //     InputElLabsKeyController();
 
   @override
   void initState() {
     super.initState();
 
     //set the initial text for the controllers here
+    inputQuestionEditingController = InputQuestionController();
     inputQuestionEditingController.setText("");
 
     //sets the text fields to the set keys from the onboarding page
-    inputGPTKeyController.setText(widget.gptKey);
-    inputElLabsKeyController.setText(widget.elLabsKey);
+    // inputGPTKeyController
+    //     .setText(widget.apiKeyStorageHelper.getGptKey() as String);
+    // inputElLabsKeyController
+    //     .setText(widget.apiKeyStorageHelper.getGptKey() as String);
   }
 
   @override
   void dispose() {
     // Dispose of the controller when no longer needed
     inputQuestionEditingController.dispose();
-    inputGPTKeyController.dispose();
-    inputElLabsKeyController.dispose();
+    // inputGPTKeyController.dispose();
+    // inputElLabsKeyController.dispose();
 
     super.dispose();
   }
@@ -62,10 +62,12 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const <Widget>[
-                OutputBox(),
-                SizedBox(height: 15),
-                OutputTTSButton(),
+              children: <Widget>[
+                const OutputBox(),
+                const SizedBox(height: 15),
+                OutputTTSButton(
+                  apiKeyStorageHelper: widget.apiKeyStorageHelper,
+                ),
               ],
             ),
             Row(
@@ -87,6 +89,7 @@ class _HomeState extends State<Home> {
                         ),
                         const SizedBox(width: 15),
                         InputSubmitButton(
+                          apiKeyStorageHelper: widget.apiKeyStorageHelper,
                           controller: inputQuestionEditingController,
                         ),
                       ],
@@ -101,8 +104,9 @@ class _HomeState extends State<Home> {
                 const CreditsButton(),
                 const ThemeModeButton(),
                 SettingsButton(
-                  inputGPTKeyController: inputGPTKeyController,
-                  inputElLabsKeyController: inputElLabsKeyController,
+                  apiKeyStorageHelper: widget.apiKeyStorageHelper,
+                  // inputGPTKeyController: inputGPTKeyController,
+                  // inputElLabsKeyController: inputElLabsKeyController,
                 ),
               ],
             )
