@@ -25,11 +25,13 @@
 - [x] Modify/Update request parameters of GPT and ElevenLabs using sliders
 - [x] About and license page
 - [x] Modify/Update the API key's in App
+- [x] Store user gpt and elevenlabs slider configuations using sqflite
 - [x] Introduction page for initial user setup
-- [ ] Validate API keys before submission
-- [ ] Store user settings and API keys locally using sqflite
-- [ ] Prompt selection
-- [ ] Custom prompt creation
+- [x] Store user API keys using secure storage (no longer volatile upon app exit)
+- [x] Preset prompt selection using sqflite 
+- [ ] Custom prompt creation/deletion using sqflite
+- [ ] Comment cleanup
+- [ ] Documentation
 
 ---
 ## How to use
