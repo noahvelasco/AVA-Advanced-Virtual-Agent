@@ -37,7 +37,7 @@
 ## How to use
 1. Download this repository
 2. Run `flutter pub get` in `./ava_v2`
-3. Run `flutter run` in `lib/main.dart`
+3. Run `flutter run` in `./ava_v2/lib/main.dart`
 
 ---
 
