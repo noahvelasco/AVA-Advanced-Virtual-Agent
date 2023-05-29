@@ -80,13 +80,14 @@ class _InputBoxState extends State<InputBox> {
                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   decoration: InputDecoration(
                     hintStyle: TextStyle(
-                      color: colorScheme.secondary,
+                      color: colorScheme.secondary.withOpacity(.3),
                       fontSize: 16.0,
                     ),
                     border: InputBorder.none,
-                    hintText: 'Can entropy be reversed?',
+                    hintText: 'Who was socrates?',
                   ),
-                  style: textTheme.bodyMedium,
+                  style: textTheme.bodyMedium!
+                      .copyWith(fontStyle: FontStyle.italic),
                 ),
               ),
             ),
