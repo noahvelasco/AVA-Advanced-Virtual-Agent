@@ -25,10 +25,10 @@
 - [x] Modify/Update request parameters of GPT and ElevenLabs using sliders
 - [x] About and license page
 - [x] Modify/Update the API key's in App
-- [x] Store user gpt and elevenlabs slider configuations using sqflite
+- [x] Store user gpt and elevenlabs slider configuations (volatile)
 - [x] Introduction page for initial user setup
-- [x] Store user API keys using secure storage (no longer volatile upon app exit)
-- [x] Preset prompt selection using sqflite 
+- [x] Store user API keys using secure storage (non volatile memory)
+- [ ] Preset prompt selection using sqflite 
 - [ ] Custom prompt creation/deletion using sqflite
 - [ ] Comment cleanup
 - [ ] Documentation
@@ -45,7 +45,6 @@
 * Flutter 3.7.12
 * Dart 2.19.6
 * DevTools 2.20.1
-
 
 ---
 ## Possible Issues
