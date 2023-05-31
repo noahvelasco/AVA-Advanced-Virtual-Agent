@@ -32,14 +32,14 @@ class ELAPIViewModel extends ChangeNotifier {
 
     isLoadingVoiceProvider.setIsLoading(true);
 
-    String apiKey = (await apiStorage.getELAPIKey()) ?? "";
     String url =
         'https://api.elevenlabs.io/v1/text-to-speech/21m00Tcm4TlvDq8ikWAM';
     final response = await http.post(
       Uri.parse(url),
       headers: {
         'accept': 'audio/mpeg',
-        'xi-api-key': apiKey,
+        'xi-api-key': (await apiStorage.getELAPIKey()) ??
+            "", //api key decrypted only once its needed for request
         'Content-Type': 'application/json',
       },
       body: json.encode({

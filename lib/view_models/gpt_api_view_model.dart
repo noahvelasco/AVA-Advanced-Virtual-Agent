@@ -37,12 +37,12 @@ class GPTAPIViewModel extends ChangeNotifier {
     chatHistoryProvider.addUserPrompt(input);
 
     //only supporting gpt-3.5-turbo for now
-    String apiKey = (await apiStorage.getGPTAPIKey()) ?? "";
     String apiUrl = 'https://api.openai.com/v1/chat/completions';
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $apiKey',
+      'Authorization':
+          'Bearer ${(await apiStorage.getGPTAPIKey()) ?? ""}', //api key decrypted only once its needed for request
     };
 
     Map<String, dynamic> requestBody = {
