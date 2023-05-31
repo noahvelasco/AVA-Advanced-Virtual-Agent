@@ -9,12 +9,19 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../database/api_key_storage_helper.dart';
+import '../database/prompt_storage_helper.dart';
 
 class OnBoardingPage extends StatefulWidget {
   //APIKeyStorageHelper below is being given from the main.dart.
   final APIKeyStorageHelper apiKeyStorageHelper;
-  // ignore: use_key_in_widget_constructors
-  const OnBoardingPage({required this.apiKeyStorageHelper});
+
+  //Pass the database - not used here but is only passing through
+  final PromptStorageHelper promptStorageHelper;
+
+  const OnBoardingPage(
+      {super.key,
+      required this.apiKeyStorageHelper,
+      required this.promptStorageHelper});
 
   @override
   OnBoardingPageState createState() => OnBoardingPageState();
@@ -54,6 +61,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         builder: (_) => Home(
           //pass the same secure storage object down to home now so we can print this in the settings section
           apiKeyStorageHelper: widget.apiKeyStorageHelper,
+          promptStorageHelper: widget.promptStorageHelper,
         ),
       ),
     );
@@ -101,7 +109,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
     double height = MediaQuery.of(context).size.width;
 
     final provider = Provider.of<ThemeProvider>(context);
-    // final settingsProvider = Provider.of<SettingsProvider>(context);
 
     PageDecoration pageDecoration = PageDecoration(
       titleTextStyle: titleStyle,
@@ -128,7 +135,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           ),
         ),
       ),
-
       pages: [
         PageViewModel(
           title: "Welcome",
@@ -186,9 +192,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           style: textTheme.bodyMedium,
                           enabled: true,
                           onEditingComplete: () async {
-                            //autosave the anytext removed or added from this textfield
-                            // settingsProvider
-                            //     .setGPTAPIKey(inputGPTKeyController.text);
+                            //save the api key
                             await widget.apiKeyStorageHelper
                                 .saveGPTAPIKey(inputGPTKeyController.text);
                             FocusManager.instance.primaryFocus?.unfocus();
@@ -328,9 +332,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           style: textTheme.bodyMedium,
                           enabled: true,
                           onEditingComplete: () async {
-                            //autosave the anytext removed or added from this textfield
-                            // settingsProvider
-                            //     .setElLabsAPIKey(inputElLabsKeyController.text);
+                            //save the API Key
                             await widget.apiKeyStorageHelper
                                 .saveELAPIKey(inputElLabsKeyController.text);
                             FocusManager.instance.primaryFocus?.unfocus();
@@ -406,14 +408,11 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ],
       onDone: () => _onIntroEnd(context),
-      //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
       showSkipButton: false,
       skipOrBackFlex: 0,
       nextFlex: 0,
       showBackButton: true,
-      //rtl: true, // Display as right-to-left
       back: const Icon(Icons.arrow_back),
-      // skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600)),
       next: const Icon(Icons.arrow_forward),
       done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
       curve: Curves.fastLinearToSlowEaseIn,
