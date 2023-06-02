@@ -90,7 +90,8 @@ class _HomeState extends State<Home> {
                         //todo - pass the database into here
                         InputPromptButton(
                             inputQuestionController:
-                                inputQuestionEditingController),
+                                inputQuestionEditingController,
+                            promptStorageHelper: widget.promptStorageHelper),
                         const SizedBox(width: 15),
                         InputClearButton(
                           controller: inputQuestionEditingController,
