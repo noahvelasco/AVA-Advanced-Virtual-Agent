@@ -5,14 +5,19 @@ import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../controllers/input_question_controller.dart';
+import '../../database/prompt_storage_helper.dart';
 import '../../providers/theme_provider.dart';
 import '../bottom_sheets/prompts_bottom_sheet.dart';
 
 // ignore: must_be_immutable
 class InputPromptButton extends StatefulWidget {
   InputQuestionController inputQuestionController;
-  // ignore: use_key_in_widget_constructors
-  InputPromptButton({required this.inputQuestionController});
+  final PromptStorageHelper promptStorageHelper;
+
+  InputPromptButton(
+      {super.key,
+      required this.inputQuestionController,
+      required this.promptStorageHelper});
 
   @override
   State<InputPromptButton> createState() => _InputPromptButtonState();
@@ -59,6 +64,7 @@ class _InputPromptButtonState extends State<InputPromptButton> {
               builder: (BuildContext context) {
                 return PromptBottomSheet(
                   inputQuestionController: widget.inputQuestionController,
+                  promptStorageHelper: widget.promptStorageHelper,
                 );
               });
         },

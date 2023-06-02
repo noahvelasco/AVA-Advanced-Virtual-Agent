@@ -5,13 +5,18 @@ import 'package:provider/provider.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../database/prompt_storage_helper.dart';
 import '../../providers/theme_provider.dart';
 
 // ignore: must_be_immutable
 class PromptBottomSheet extends StatelessWidget {
   InputQuestionController inputQuestionController;
-  // ignore: use_key_in_widget_constructors
-  PromptBottomSheet({required this.inputQuestionController});
+  final PromptStorageHelper promptStorageHelper;
+
+  PromptBottomSheet(
+      {super.key,
+      required this.inputQuestionController,
+      required this.promptStorageHelper});
 
   @override
   Widget build(BuildContext context) {
