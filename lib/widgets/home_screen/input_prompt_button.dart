@@ -9,12 +9,11 @@ import '../../database/prompt_storage_helper.dart';
 import '../../providers/theme_provider.dart';
 import '../bottom_sheets/prompts_bottom_sheet.dart';
 
-// ignore: must_be_immutable
 class InputPromptButton extends StatefulWidget {
-  InputQuestionController inputQuestionController;
+  final InputQuestionController inputQuestionController;
   final PromptStorageHelper promptStorageHelper;
 
-  InputPromptButton(
+  const InputPromptButton(
       {super.key,
       required this.inputQuestionController,
       required this.promptStorageHelper});

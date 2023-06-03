@@ -5,7 +5,6 @@ import '../database/prompt_storage_helper.dart';
 import '../widgets/home_screen/export_home_screen_widgets.dart';
 import '../controllers/input_question_controller.dart';
 
-// ignore: must_be_immutable
 class Home extends StatefulWidget {
   final APIKeyStorageHelper apiKeyStorageHelper;
   final PromptStorageHelper promptStorageHelper;
@@ -29,23 +28,6 @@ class _HomeState extends State<Home> {
     //set the initial text for the controllers here
     inputQuestionEditingController = InputQuestionController();
     inputQuestionEditingController.setText("");
-
-    //TODO delete below since they were for testing only
-    printDatabaseContents();
-    widget.promptStorageHelper.deleteAllData();
-    debugPrint("after deleting");
-    printDatabaseContents();
-  }
-
-  //TODO relocate function since it was only for testing
-  Future<void> printDatabaseContents() async {
-    final List<Map<String, dynamic>> data =
-        await widget.promptStorageHelper.getAllData();
-    data.forEach((row) {
-      final title = row['title'];
-      final prompt = row['prompt'];
-      print('Title: $title, Prompt: $prompt');
-    });
   }
 
   @override
