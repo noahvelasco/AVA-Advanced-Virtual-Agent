@@ -1,5 +1,5 @@
 import 'package:ava_v2/view_models/export_view_models.dart';
-import 'package:ava_v2/views/onboarding_screen.dart';
+// import 'package:ava_v2/views/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,12 +28,8 @@ void main() async {
   // Initialize the prompt storage database
   final PromptStorageHelper promptStorageHelper = PromptStorageHelper();
 
-  // Insert preset data into the prompt storage database
-  await promptStorageHelper.insertData('Prompt 1', 'In simple terms, what is ');
-  await promptStorageHelper.insertData(
-      'Prompt 2', 'Explain the fast way how I can ');
-
-  debugPrint("YOU ARE IN MAIN 2");
+  //initialize the default prompts by adding them into the database
+  promptStorageHelper.initializeDefaultPrompts();
 
   runApp(
     MultiProvider(

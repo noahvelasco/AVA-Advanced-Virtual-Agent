@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -21,20 +22,30 @@ class PromptStorageHelper {
 
   Future<Database> _initDatabase() async {
     String databasesPath = await getDatabasesPath();
-    String dbPath = join(databasesPath, 'my_database.db');
+    String dbPath = join(databasesPath, 'prompt_database.db');
 
     return await openDatabase(dbPath, version: 1, onCreate: _createDatabase);
   }
 
   Future<void> _createDatabase(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE my_table (
+      CREATE TABLE prompt_table (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT,
         prompt TEXT,
         status TEXT
       )
     ''');
+  }
+
+  void deleteDB() async {
+    Database db = await database;
+    String databasesPath = await getDatabasesPath();
+    String dbPath = join(databasesPath, 'prompt_database.db');
+    //close the connections
+    await db.close();
+    // Delete the database
+    await deleteDatabase(dbPath);
   }
 
   Future<int> insertData(String title, String prompt, String status) async {
@@ -44,12 +55,13 @@ class PromptStorageHelper {
       'prompt': prompt,
       'status': status,
     };
-    return await db.insert('my_table', data);
+    return await db.insert('prompt_table', data);
   }
 
   Future<List<Map<String, dynamic>>> getAllData() async {
+    debugPrint("GETTING DATA");
     Database db = await database;
-    return await db.query('my_table');
+    return await db.query('prompt_table');
   }
 
   Future<int> updateData(
@@ -60,17 +72,18 @@ class PromptStorageHelper {
       'prompt': prompt,
       'status': status,
     };
-    return await db.update('my_table', data, where: 'id = ?', whereArgs: [id]);
+    return await db
+        .update('prompt_table', data, where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> deleteData(int id) async {
     Database db = await database;
-    return await db.delete('my_table', where: 'id = ?', whereArgs: [id]);
+    return await db.delete('prompt_table', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> deleteAllData() async {
     Database db = await database;
-    return await db.delete('my_table');
+    return await db.delete('prompt_table');
   }
 
   void initializeDefaultPrompts() async {
