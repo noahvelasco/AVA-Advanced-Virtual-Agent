@@ -48,6 +48,10 @@
 
 ---
 ## Possible Issues
+
+### Both
+* Imcompatible with Flutter 3.10
+
 ### Android
 * Enable developer mode on your phone
 
