@@ -24,7 +24,10 @@ class PromptStorageHelper {
     String databasesPath = await getDatabasesPath();
     String dbPath = join(databasesPath, 'prompt_database.db');
 
-    return await openDatabase(dbPath, version: 1, onCreate: _createDatabase);
+    return await openDatabase(dbPath,
+        version: 1,
+        onCreate: _createDatabase,
+        onConfigure: _initializeDefaultPrompts);
   }
 
   Future<void> _createDatabase(Database db, int version) async {
@@ -46,6 +49,7 @@ class PromptStorageHelper {
     await db.close();
     // Delete the database
     await deleteDatabase(dbPath);
+    debugPrint("Deleted the database!");
   }
 
   Future<int> insertData(String title, String prompt, String status) async {
@@ -64,6 +68,28 @@ class PromptStorageHelper {
     return await db.query('prompt_table');
   }
 
+  //For debugging purposes
+  void printTableData() async {
+    Database db = await database;
+    debugPrint('Printing DB');
+
+    final tableData = await db.rawQuery('SELECT * FROM prompt_table');
+    for (final row in tableData) {
+      final id = row['id'];
+      final title = row['title'];
+      final prompt = row['prompt'];
+      final status = row['status'];
+
+      debugPrint('ID: $id');
+      debugPrint('Title: $title');
+      debugPrint('Prompt: $prompt');
+      debugPrint('Status: $status');
+      debugPrint('-----------------------');
+    }
+
+    db.close();
+  }
+
   Future<int> updateData(
       int id, String title, String prompt, String status) async {
     Database db = await database;
@@ -77,25 +103,22 @@ class PromptStorageHelper {
   }
 
   Future<int> deleteData(int id) async {
+    debugPrint("Deleted element id @ $id!");
     Database db = await database;
     return await db.delete('prompt_table', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> deleteAllData() async {
+    debugPrint("Deleted the prompt table!");
     Database db = await database;
     return await db.delete('prompt_table');
   }
 
-  void initializeDefaultPrompts() async {
+  Future<void> _initializeDefaultPrompts(Database db) async {
     await insertData(
-        "Follow-Up 1",
-        "What are the key concepts I should focus on in this subject?",
-        "default");
+        "Follow-Up 1", "Explain that again to me but like I'm 10", "default");
 
-    await insertData(
-        "Follow-Up 2", "Explain that again to me but like I'm 10", "default");
-
-    await insertData("Follow-Up 3", "Can you elaborate?", "default");
+    await insertData("Follow-Up 2", "Can you elaborate?", "default");
 
     await insertData("Productivity 1",
         "Generate various solutions to [problem]\nproblem: ", "default");
@@ -104,31 +127,13 @@ class PromptStorageHelper {
         "How can I make [task] more enjoyable or engaging?\ntask: ", "default");
 
     await insertData(
-        "Health 1",
-        "How long should I fast until I activate Atophagy in my body?",
-        "default");
-
-    await insertData(
-        "Health 2", "How can I clean the chemicals off my fruit?", "default");
-
-    await insertData(
         "Marketing 1",
         "Evaluate the viability of launching a business in [business idea] while targeting [target audience]\nbusiness idea:\ntarget audience:",
         "default");
 
     await insertData(
-        "Marketing 2",
-        "How could I boost reach and revenue through a business in [business idea]\nBusiness idea: ",
-        "default");
-
-    await insertData(
         "Entreprenuership 1",
         "In short, what are the key elements I should have within my pitch deck?",
-        "default");
-
-    await insertData(
-        "Entreprenuership 2",
-        "What do investors value in a [business type] business?\nbusiness type: ",
         "default");
   }
 }

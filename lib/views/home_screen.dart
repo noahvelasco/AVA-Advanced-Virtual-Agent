@@ -69,7 +69,6 @@ class _HomeState extends State<Home> {
                     const SizedBox(height: 15),
                     Row(
                       children: <Widget>[
-                        //todo - pass the database into here
                         InputPromptButton(
                             inputQuestionController:
                                 inputQuestionEditingController,

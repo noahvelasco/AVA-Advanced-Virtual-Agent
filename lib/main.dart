@@ -10,6 +10,7 @@ import 'database/prompt_storage_helper.dart';
 import 'providers/export_providers.dart';
 import 'views/home_screen.dart';
 
+//TODO - fix the initialize DB issues and reinsert the onboarding screen
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -27,9 +28,9 @@ void main() async {
 
   // Initialize the prompt storage database
   final PromptStorageHelper promptStorageHelper = PromptStorageHelper();
-
   //initialize the default prompts by adding them into the database
-  promptStorageHelper.initializeDefaultPrompts();
+  // promptStorageHelper.initializeDefaultPrompts();
+  // promptStorageHelper.deleteDB();
 
   runApp(
     MultiProvider(

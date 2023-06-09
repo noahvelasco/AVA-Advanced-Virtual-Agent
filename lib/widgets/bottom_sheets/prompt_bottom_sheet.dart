@@ -1,6 +1,5 @@
 import 'package:ava_v2/controllers/export_controllers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../database/prompt_storage_helper.dart';
@@ -25,6 +24,7 @@ class _PromptBottomSheetState extends State<PromptBottomSheet> {
   @override
   void initState() {
     super.initState();
+    widget.promptStorageHelper.printTableData();
     _promptList = widget.promptStorageHelper.getAllData();
   }
 
@@ -56,9 +56,9 @@ class _PromptBottomSheetState extends State<PromptBottomSheet> {
               itemCount: data.length,
               itemBuilder: (context, index) {
                 final item = data[index];
-                final title = item['title'];
+                // final title = item['title'];
                 final prompt = item['prompt'];
-                final status = item['status'];
+                // final status = item['status'];
 
                 return Padding(
                   padding: const EdgeInsets.all(8.0),

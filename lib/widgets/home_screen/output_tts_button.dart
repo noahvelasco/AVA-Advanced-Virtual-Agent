@@ -10,7 +10,7 @@ class OutputTTSButton extends StatefulWidget {
   //Is being passed down from home and will be sent to "fetchGPTResponse()"
   final APIKeyStorageHelper apiKeyStorageHelper;
 
-  OutputTTSButton({required this.apiKeyStorageHelper});
+  const OutputTTSButton({super.key, required this.apiKeyStorageHelper});
 
   @override
   State<OutputTTSButton> createState() => _OutputTTSButtonState();

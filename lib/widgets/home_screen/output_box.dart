@@ -1,12 +1,11 @@
-// ignore: unnecessary_import
 import 'package:ava_v2/providers/export_providers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class OutputBox extends StatefulWidget {
-  // ignore: use_key_in_widget_constructors
   const OutputBox({super.key});
 
   @override
@@ -16,6 +15,9 @@ class OutputBox extends StatefulWidget {
 class _OutputBoxState extends State<OutputBox> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     final themeProvider = Provider.of<ThemeProvider>(context);
     final isLoadingProvider = Provider.of<LoadingIconGPTProvider>(context);
     final ChatHistoryProvider chatHistoryProvider =
@@ -23,14 +25,7 @@ class _OutputBoxState extends State<OutputBox> {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    final textThemeItalicized = textTheme.bodyMedium!.copyWith(
-      fontStyle: FontStyle.italic,
-    );
-
     ScrollController outputScrollController = ScrollController();
-
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -49,6 +44,7 @@ class _OutputBoxState extends State<OutputBox> {
                 ),
               );
               final snackBar = SnackBar(
+                dismissDirection: DismissDirection.up,
                 margin:
                     EdgeInsets.only(left: 20, right: 20, bottom: height * 0.90),
                 behavior: SnackBarBehavior.floating,
@@ -104,9 +100,18 @@ class _OutputBoxState extends State<OutputBox> {
                       scrollDirection: Axis.vertical,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 5.0),
-                        child: Text(
-                            chatHistoryProvider.chatHistory.last["content"]!,
-                            style: textThemeItalicized),
+                        child: SizedBox(
+                          width: width,
+                          child: AnimatedTextKit(
+                            isRepeatingAnimation: false,
+                            animatedTexts: [
+                              TyperAnimatedText(
+                                chatHistoryProvider
+                                    .chatHistory.last["content"]!,
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),

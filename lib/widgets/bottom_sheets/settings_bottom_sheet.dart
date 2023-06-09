@@ -5,11 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../../database/api_key_storage_helper.dart';
 
-// ignore: must_be_immutable
+//TODO - add a check mark button to each of the text fields
 class SettingsBottomSheet extends StatefulWidget {
   final APIKeyStorageHelper apiKeyStorageHelper;
-  // ignore: use_key_in_widget_constructors
-  const SettingsBottomSheet({required this.apiKeyStorageHelper});
+  const SettingsBottomSheet({super.key, required this.apiKeyStorageHelper});
 
   @override
   State<SettingsBottomSheet> createState() => _SettingsBottomSheetState();
@@ -112,18 +111,6 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                           enabled: true,
                           onEditingComplete: () {
                             //autosave the anytext removed or added from this textfield
-                            // widget.inputGPTKeyController.setText(widget
-                            //     .inputGPTKeyController
-                            //     .inputGPTKeyTextEditingController
-                            //     .text);
-
-                            //then save the key into the settings provider - this will update the settings fields
-                            // settingsProvider.setGPTAPIKey(widget
-                            //     .inputGPTKeyController
-                            //     .inputGPTKeyTextEditingController
-                            //     .text);
-
-                            //TODO
                             widget.apiKeyStorageHelper
                                 .saveGPTAPIKey(inputGPTKeyController.text);
 

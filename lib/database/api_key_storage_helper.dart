@@ -9,7 +9,7 @@ to secure storage.
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class APIKeyStorageHelper {
-  final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   Future<void> saveGPTAPIKey(String gptKey) async {
     await _secureStorage.write(key: 'gptkey', value: gptKey);
