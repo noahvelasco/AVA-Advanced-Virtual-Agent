@@ -1,5 +1,4 @@
 import 'package:ava_v2/view_models/export_view_models.dart';
-// import 'package:ava_v2/views/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,9 +7,10 @@ import 'package:provider/provider.dart';
 import 'database/api_key_storage_helper.dart';
 import 'database/prompt_storage_helper.dart';
 import 'providers/export_providers.dart';
-import 'views/home_screen.dart';
+// import 'views/home_screen.dart';
+import 'views/onboarding_screen.dart';
 
-//TODO - fix the initialize DB issues and reinsert the onboarding screen
+//TODO - fix the initialize DB issues
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -161,14 +161,15 @@ class Ava extends StatelessWidget {
             ),
           ),
           themeMode: provider.theme,
-          home: Home(
-            //pass the same secure storage object down to home now so we can print this in the settings section
+          // home: Home(
+          //   //pass the same secure storage object down to home now so we can print this in the settings section
+          //   apiKeyStorageHelper: apiKeyStorageHelper,
+          //   promptStorageHelper: promptStorageHelper,
+          // ),
+          home: OnBoardingPage(
             apiKeyStorageHelper: apiKeyStorageHelper,
             promptStorageHelper: promptStorageHelper,
           ),
-          // home: OnBoardingPage(
-          //   apiKeyStorageHelper: apiKeyStorageHelper,
-          // ),
         );
       },
     );

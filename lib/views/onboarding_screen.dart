@@ -157,7 +157,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                   children: [
                     //------------------------------------------------------------------------------------- GPT KEY
                     SizedBox(
-                      width: width * .5,
+                      width: width * .72,
                       height: height * .1,
                       child: Neumorphic(
                         style: NeumorphicStyle(
@@ -180,7 +180,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                             border: InputBorder.none,
                             filled: true,
                             fillColor: const Color(0xFF252525),
-                            hintText: "sk-xxx...",
+                            hintText: "sk-5yg2...",
                             hintStyle: textTheme.bodyMedium!.copyWith(
                                 color: const Color(0xFFE7ECEF).withOpacity(.5),
                                 fontStyle: FontStyle.italic),
@@ -191,9 +191,9 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           ),
                           style: textTheme.bodyMedium,
                           enabled: true,
-                          onEditingComplete: () async {
+                          onEditingComplete: () {
                             //save the api key
-                            await widget.apiKeyStorageHelper
+                            widget.apiKeyStorageHelper
                                 .saveGPTAPIKey(inputGPTKeyController.text);
                             FocusManager.instance.primaryFocus?.unfocus();
 
@@ -203,8 +203,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                       ),
                     ),
                     SizedBox(
-                      width: width * 0.3,
-                      height: height * 0.1,
+                      width: width * 0.12,
+                      height: height * 0.10,
                       child: NeumorphicButton(
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.width * 0.025),
@@ -222,22 +222,18 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           boxShape: NeumorphicBoxShape.roundRect(
                               BorderRadius.circular(20)),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const <Widget>[
-                            Text("GET KEY",
-                                style: TextStyle(
-                                    fontSize: 16, color: Color(0xFFE7ECEF))),
-                            FaIcon(
-                              FontAwesomeIcons.arrowRightToBracket,
-                              size: 15,
-                              color: Color(0xFFE7ECEF),
-                            ),
-                          ],
+                        child: const Center(
+                          child: FaIcon(
+                            FontAwesomeIcons.check,
+                            size: 15,
+                            color: Color(0xFFE7ECEF),
+                          ),
                         ),
                         onPressed: () {
+                          //save the api key
+                          widget.apiKeyStorageHelper
+                              .saveGPTAPIKey(inputGPTKeyController.text);
                           FocusManager.instance.primaryFocus?.unfocus();
-                          _launchGPTUrl();
                         },
                       ),
                     ),
@@ -263,16 +259,32 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                     boxShape:
                         NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
                   ),
-                  child: const Center(
+                  child: Center(
                     //animation for the confirmation
-                    child: FaIcon(
-                      FontAwesomeIcons.check,
-                      size: 20,
-                      color: Color(0xFFE7ECEF),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        Text(
+                          "GET KEY",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFFE7ECEF),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        FaIcon(
+                          FontAwesomeIcons.arrowRightToBracket,
+                          size: 15,
+                          color: Color(0xFFE7ECEF),
+                        ),
+                      ],
                     ),
                   ),
                   onPressed: () {
                     FocusManager.instance.primaryFocus?.unfocus();
+                    _launchGPTUrl();
                   },
                 ),
               ),
@@ -287,19 +299,14 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           footer: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                "Optional",
-                style: textTheme.bodyMedium!.copyWith(
-                    color: const Color(0xFFE7ECEF),
-                    fontStyle: FontStyle.italic),
-              ),
               Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 20),
+                padding: const EdgeInsets.only(bottom: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    //------------------------------------------------------------------------------------- EL KEY
                     SizedBox(
-                      width: width * .5,
+                      width: width * .72,
                       height: height * .1,
                       child: Neumorphic(
                         style: NeumorphicStyle(
@@ -322,27 +329,31 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                             border: InputBorder.none,
                             filled: true,
                             fillColor: const Color(0xFF252525),
-                            hintText: "ElevenLabs Key (Optional)",
+                            hintText: "23232...",
                             hintStyle: textTheme.bodyMedium!.copyWith(
                                 color: const Color(0xFFE7ECEF).withOpacity(.5),
                                 fontStyle: FontStyle.italic),
-                            suffixIcon: const Icon(Icons.create,
-                                color: Color(0xFFE7ECEF)),
+                            suffixIcon: const Icon(
+                              Icons.create,
+                              color: Color(0xFFE7ECEF),
+                            ),
                           ),
                           style: textTheme.bodyMedium,
                           enabled: true,
-                          onEditingComplete: () async {
-                            //save the API Key
-                            await widget.apiKeyStorageHelper
+                          onEditingComplete: () {
+                            //save the api key
+                            widget.apiKeyStorageHelper
                                 .saveELAPIKey(inputElLabsKeyController.text);
                             FocusManager.instance.primaryFocus?.unfocus();
+
+                            //pop up telling the user it was saved
                           },
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: width * 0.3,
-                      height: height * 0.1,
+                      width: width * 0.12,
+                      height: height * 0.10,
                       child: NeumorphicButton(
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.width * 0.025),
@@ -360,26 +371,70 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                           boxShape: NeumorphicBoxShape.roundRect(
                               BorderRadius.circular(20)),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const <Widget>[
-                            Text("GET KEY",
-                                style: TextStyle(
-                                    fontSize: 16, color: Color(0xFFE7ECEF))),
-                            FaIcon(
-                              FontAwesomeIcons.arrowRightToBracket,
-                              size: 15,
-                              color: Color(0xFFE7ECEF),
-                            ),
-                          ],
+                        child: const Center(
+                          child: FaIcon(
+                            FontAwesomeIcons.check,
+                            size: 15,
+                            color: Color(0xFFE7ECEF),
+                          ),
                         ),
                         onPressed: () {
+                          //save the api key
+                          widget.apiKeyStorageHelper
+                              .saveELAPIKey(inputElLabsKeyController.text);
                           FocusManager.instance.primaryFocus?.unfocus();
-                          _launchELUrl();
                         },
                       ),
                     ),
                   ],
+                ),
+              ),
+              SizedBox(
+                width: width * 0.9,
+                height: height * 0.1,
+                child: NeumorphicButton(
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.025),
+                  minDistance: -5,
+                  style: NeumorphicStyle(
+                    lightSource: LightSource.topLeft,
+                    intensity: provider.theme == ThemeMode.light ? .8 : .6,
+                    color: const Color(0xFF252525),
+                    shadowDarkColor: Colors.black,
+                    shadowLightColorEmboss: Colors.white,
+                    shadowDarkColorEmboss: Colors.black,
+                    depth: 2,
+                    shape: NeumorphicShape.flat,
+                    boxShape:
+                        NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                  ),
+                  child: Center(
+                    //animation for the confirmation
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        Text(
+                          "GET KEY",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFFE7ECEF),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        FaIcon(
+                          FontAwesomeIcons.arrowRightToBracket,
+                          size: 15,
+                          color: Color(0xFFE7ECEF),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onPressed: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    _launchELUrl();
+                  },
                 ),
               ),
             ],
@@ -411,24 +466,38 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       showSkipButton: false,
       skipOrBackFlex: 0,
       nextFlex: 0,
-      showBackButton: true,
-      back: const Icon(Icons.arrow_back),
-      next: const Icon(Icons.arrow_forward),
-      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+      showNextButton: false,
+      showBackButton: false,
+      //back and next presets are here but not shown just incase I change my mind for future
+      back: const Icon(
+        Icons.arrow_back,
+        color: Color(0xFFE7ECEF),
+      ),
+      next: const Icon(
+        Icons.arrow_forward,
+        color: Color(0xFFE7ECEF),
+      ),
+      done: const Text(
+        'Done',
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          color: Color(0xFFE7ECEF),
+        ),
+      ),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       controlsPadding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 4.0),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
-        color: Color(0xFFBDBDBD),
-        activeColor: Color(0xFF252525),
+        color: Color.fromARGB(255, 62, 62, 62),
+        activeColor: Color(0xFFE7ECEF),
         activeSize: Size(22.0, 10.0),
         activeShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
         ),
       ),
       dotsContainerDecorator: const ShapeDecoration(
-        color: Colors.grey,
+        color: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
