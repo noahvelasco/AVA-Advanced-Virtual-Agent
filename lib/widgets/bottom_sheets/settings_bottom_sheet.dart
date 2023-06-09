@@ -105,12 +105,17 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                             hintStyle: textTheme.bodyMedium!.copyWith(
                                 color: colorScheme.secondary.withOpacity(.5),
                                 fontStyle: FontStyle.italic),
-                            suffixIcon: const Icon(Icons.create),
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.cancel_sharp),
+                              onPressed: () {
+                                widget.apiKeyStorageHelper.deleteGPTAPIKey();
+                                inputGPTKeyController.clear();
+                              },
+                            ),
                           ),
                           style: textTheme.bodyMedium,
                           enabled: true,
                           onEditingComplete: () {
-                            //autosave the anytext removed or added from this textfield
                             widget.apiKeyStorageHelper
                                 .saveGPTAPIKey(inputGPTKeyController.text);
 
@@ -141,18 +146,14 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                         ),
                         child: const Center(
                           child: FaIcon(
-                            FontAwesomeIcons.trashCan,
+                            FontAwesomeIcons.check,
                             size: 15,
                           ),
                         ),
                         onPressed: () {
-                          //autosave the update
+                          widget.apiKeyStorageHelper
+                              .saveGPTAPIKey(inputGPTKeyController.text);
                           FocusManager.instance.primaryFocus?.unfocus();
-                          // widget.inputGPTKeyController
-                          //     .inputGPTKeyTextEditingController
-                          //     .clear();
-                          inputGPTKeyController.clear();
-                          widget.apiKeyStorageHelper.deleteGPTAPIKey();
                         },
                       ),
                     ),
@@ -193,23 +194,17 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                             hintStyle: textTheme.bodyMedium!.copyWith(
                                 color: colorScheme.secondary.withOpacity(.5),
                                 fontStyle: FontStyle.italic),
-                            suffixIcon: const Icon(Icons.create),
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.cancel_sharp),
+                              onPressed: () {
+                                widget.apiKeyStorageHelper.deleteELAPIKey();
+                                inputElLabsKeyController.clear();
+                              },
+                            ),
                           ),
                           style: textTheme.bodyMedium,
                           enabled: true,
                           onEditingComplete: () {
-                            //autosave the anytext removed or added from this textfield
-                            // widget.inputElLabsKeyController.setText(widget
-                            //     .inputElLabsKeyController
-                            //     .inputElLabsKeyTextEditingController
-                            //     .text);
-
-                            //then save the key into the settings provider - this will update the settings fields
-                            // settingsProvider.setElLabsAPIKey(widget
-                            //     .inputElLabsKeyController
-                            //     .inputElLabsKeyTextEditingController
-                            //     .text);
-
                             widget.apiKeyStorageHelper
                                 .saveELAPIKey(inputElLabsKeyController.text);
                             FocusManager.instance.primaryFocus?.unfocus();
@@ -239,17 +234,14 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                         ),
                         child: const Center(
                           child: FaIcon(
-                            FontAwesomeIcons.trashCan,
+                            FontAwesomeIcons.check,
                             size: 15,
                           ),
                         ),
                         onPressed: () {
+                          widget.apiKeyStorageHelper
+                              .saveELAPIKey(inputElLabsKeyController.text);
                           FocusManager.instance.primaryFocus?.unfocus();
-                          // widget.inputElLabsKeyController
-                          //     .inputElLabsKeyTextEditingController
-                          //     .clear();
-                          inputElLabsKeyController.clear();
-                          widget.apiKeyStorageHelper.deleteELAPIKey();
                         },
                       ),
                     ),
