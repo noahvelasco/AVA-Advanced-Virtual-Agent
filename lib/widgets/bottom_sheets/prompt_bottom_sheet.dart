@@ -24,7 +24,6 @@ class _PromptBottomSheetState extends State<PromptBottomSheet> {
   @override
   void initState() {
     super.initState();
-    widget.promptStorageHelper.printTableData();
     _promptList = widget.promptStorageHelper.getAllData();
   }
 
