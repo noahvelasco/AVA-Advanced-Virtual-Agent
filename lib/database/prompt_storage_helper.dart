@@ -102,38 +102,39 @@ class PromptStorageHelper {
         .update('prompt_table', data, where: 'id = ?', whereArgs: [id]);
   }
 
-  Future<int> deleteData(int id) async {
-    debugPrint("Deleted element id @ $id!");
-    Database db = await database;
-    return await db.delete('prompt_table', where: 'id = ?', whereArgs: [id]);
-  }
-
   Future<int> deleteAllData() async {
     debugPrint("Deleted the prompt table!");
     Database db = await database;
     return await db.delete('prompt_table');
   }
 
+  Future<void> deleteTable() async {
+    Database db = await database;
+    await db.execute('DROP TABLE IF EXISTS prompt_table');
+  }
+
   Future<void> _initializeDefaultPrompts(Database db) async {
-    await insertData(
+    debugPrint("Initializing Preset Prompts...");
+    insertData(
         "Follow-Up 1", "Explain that again to me but like I'm 10", "default");
 
-    await insertData("Follow-Up 2", "Can you elaborate?", "default");
+    insertData("Follow-Up 2", "Can you elaborate?", "default");
 
-    await insertData("Productivity 1",
+    insertData("Productivity 1",
         "Generate various solutions to [problem]\nproblem: ", "default");
 
-    await insertData("Productivity 2",
+    insertData("Productivity 2",
         "How can I make [task] more enjoyable or engaging?\ntask: ", "default");
 
-    await insertData(
+    insertData(
         "Marketing 1",
         "Evaluate the viability of launching a business in [business idea] while targeting [target audience]\nbusiness idea:\ntarget audience:",
         "default");
 
-    await insertData(
+    insertData(
         "Entreprenuership 1",
         "In short, what are the key elements I should have within my pitch deck?",
         "default");
+    debugPrint("...Initialized Preset Prompts");
   }
 }
