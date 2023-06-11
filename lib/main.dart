@@ -5,9 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'database/api_key_storage_helper.dart';
-import 'database/prompt_storage_helper.dart';
 import 'providers/export_providers.dart';
-// import 'views/home_screen.dart';
+import 'views/home_screen.dart';
 import 'views/onboarding_screen.dart';
 
 //TODO - fix the initialize DB issues
@@ -26,11 +25,17 @@ void main() async {
   */
   final APIKeyStorageHelper apiKeyStorageHelper = APIKeyStorageHelper();
 
-  // Initialize the prompt storage database
-  final PromptStorageHelper promptStorageHelper = PromptStorageHelper();
-  //initialize the default prompts by adding them into the database
-  // promptStorageHelper.initializeDefaultPrompts();
+  //instantiate the prompt storage database object and its functions
+  // final PromptStorageHelper promptStorageHelper = PromptStorageHelper();
+
+  // promptStorageHelper.deleteTable();
+  // debugPrint("Deleted Table");
+
   // promptStorageHelper.deleteDB();
+  // debugPrint("Deleted DB");
+
+  //Get the database object from promptStorageHelper
+  // final Database database = await promptStorageHelper.database;
 
   runApp(
     MultiProvider(
@@ -60,7 +65,6 @@ void main() async {
       //pass the api key database and the prompt database helpers to the main app
       child: Ava(
         apiKeyStorageHelper: apiKeyStorageHelper,
-        promptStorageHelper: promptStorageHelper,
       ),
     ),
   );
@@ -68,13 +72,11 @@ void main() async {
 
 class Ava extends StatelessWidget {
   final APIKeyStorageHelper apiKeyStorageHelper;
-  final PromptStorageHelper promptStorageHelper;
 
-  const Ava(
-      {Key? key,
-      required this.apiKeyStorageHelper,
-      required this.promptStorageHelper})
-      : super(key: key);
+  const Ava({
+    Key? key,
+    required this.apiKeyStorageHelper,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -161,15 +163,13 @@ class Ava extends StatelessWidget {
             ),
           ),
           themeMode: provider.theme,
-          // home: Home(
-          //   //pass the same secure storage object down to home now so we can print this in the settings section
-          //   apiKeyStorageHelper: apiKeyStorageHelper,
-          //   promptStorageHelper: promptStorageHelper,
-          // ),
-          home: OnBoardingPage(
+          home: Home(
+            //pass the same secure storage object down to home now so we can print this in the settings section
             apiKeyStorageHelper: apiKeyStorageHelper,
-            promptStorageHelper: promptStorageHelper,
           ),
+          // home: OnBoardingPage(
+          //   apiKeyStorageHelper: apiKeyStorageHelper,
+          // ),
         );
       },
     );

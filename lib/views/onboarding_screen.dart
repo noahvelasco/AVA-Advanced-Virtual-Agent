@@ -9,19 +9,15 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../database/api_key_storage_helper.dart';
-import '../database/prompt_storage_helper.dart';
 
 class OnBoardingPage extends StatefulWidget {
   //APIKeyStorageHelper below is being given from the main.dart.
   final APIKeyStorageHelper apiKeyStorageHelper;
 
-  //Pass the database - not used here but is only passing through
-  final PromptStorageHelper promptStorageHelper;
-
-  const OnBoardingPage(
-      {super.key,
-      required this.apiKeyStorageHelper,
-      required this.promptStorageHelper});
+  const OnBoardingPage({
+    super.key,
+    required this.apiKeyStorageHelper,
+  });
 
   @override
   OnBoardingPageState createState() => OnBoardingPageState();
@@ -61,7 +57,6 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         builder: (_) => Home(
           //pass the same secure storage object down to home now so we can print this in the settings section
           apiKeyStorageHelper: widget.apiKeyStorageHelper,
-          promptStorageHelper: widget.promptStorageHelper,
         ),
       ),
     );

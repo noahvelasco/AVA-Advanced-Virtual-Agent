@@ -1,30 +1,61 @@
 import 'package:ava_v2/controllers/export_controllers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../../database/prompt_storage_helper.dart';
 import '../../providers/theme_provider.dart';
 
+//TODO - fix duplicates issue and issue with not showing prompts until clicking on it twice
+
 class PromptBottomSheet extends StatefulWidget {
   final InputQuestionController inputQuestionController;
-  final PromptStorageHelper promptStorageHelper;
 
-  const PromptBottomSheet(
-      {super.key,
-      required this.inputQuestionController,
-      required this.promptStorageHelper});
+  const PromptBottomSheet({
+    super.key,
+    required this.inputQuestionController,
+  });
 
   @override
   State<PromptBottomSheet> createState() => _PromptBottomSheetState();
 }
 
 class _PromptBottomSheetState extends State<PromptBottomSheet> {
-  late Future<List<Map<String, dynamic>>> _promptList;
+//Create the database object maker and its CRUD functions
+  late final PromptStorageHelper _promptStorageHelper;
 
+  //create the database object using the database object maker
+  late final Database? _database;
+  late final Future<List<Map<String, dynamic>>> _promptList;
   @override
   void initState() {
     super.initState();
-    _promptList = widget.promptStorageHelper.getAllData();
+    _promptStorageHelper = PromptStorageHelper();
+    _initializeDatabase();
+    _promptList = _promptStorageHelper.getAllData();
+
+    /*
+      Debugging purposes only - comment 'await promptStorageHelper.database;' 
+      and uncomment below to delete DB 
+    */
+
+    // debugPrint("Printing Table");
+    // promptStorageHelper.printTableData();
+
+    // _promptStorageHelper.deleteTable();
+    // debugPrint("Deleted Table");
+
+    // _promptStorageHelper.deleteDB();
+    // debugPrint("Deleted DB");
+  }
+
+  Future<void> _initializeDatabase() async {
+    _database = await _promptStorageHelper.database;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

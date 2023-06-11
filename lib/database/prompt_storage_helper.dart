@@ -15,23 +15,32 @@ class PromptStorageHelper {
   static Database? _database;
 
   Future<Database> get database async {
-    if (_database != null) return _database!;
-    _database = await _initDatabase();
-    return _database!;
+    if (_database != null) {
+      return _database!;
+    } else {
+      _database = await _initDatabase();
+      return _database!;
+    }
   }
 
   Future<Database> _initDatabase() async {
     String databasesPath = await getDatabasesPath();
     String dbPath = join(databasesPath, 'prompt_database.db');
 
-    return await openDatabase(dbPath,
-        version: 1,
-        onCreate: _createDatabase,
-        onConfigure: _initializeDefaultPrompts);
+    Database db = await openDatabase(
+      dbPath,
+      version: 1,
+      onCreate: _createDatabase,
+    );
+
+    //after creating db then initialize the prompts
+    _initializeDefaultPrompts(db);
+
+    return db;
   }
 
   Future<void> _createDatabase(Database db, int version) async {
-    await db.execute('''
+    db.execute('''
       CREATE TABLE prompt_table (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT,
@@ -39,17 +48,6 @@ class PromptStorageHelper {
         status TEXT
       )
     ''');
-  }
-
-  void deleteDB() async {
-    Database db = await database;
-    String databasesPath = await getDatabasesPath();
-    String dbPath = join(databasesPath, 'prompt_database.db');
-    //close the connections
-    await db.close();
-    // Delete the database
-    await deleteDatabase(dbPath);
-    debugPrint("Deleted the database!");
   }
 
   Future<int> insertData(String title, String prompt, String status) async {
@@ -66,6 +64,50 @@ class PromptStorageHelper {
     debugPrint("GETTING DATA");
     Database db = await database;
     return await db.query('prompt_table');
+  }
+
+  Future<void> deleteTable() async {
+    Database db = await database;
+    await db.execute('DROP TABLE IF EXISTS prompt_table');
+  }
+
+  void deleteDB() async {
+    Database db = await database;
+    String databasesPath = await getDatabasesPath();
+    String dbPath = join(databasesPath, 'prompt_database.db');
+    //close the connections
+    await db.close();
+    // Delete the database
+    await deleteDatabase(dbPath);
+    debugPrint("Deleted the database!");
+  }
+
+  Future<void> _initializeDefaultPrompts(Database db) async {
+    final existingPrompts = await db.query('prompt_table');
+    if (existingPrompts.isEmpty) {
+      await insertData(
+          "Follow-Up 1", "Explain that again to me but like I'm 10", "default");
+
+      await insertData("Follow-Up 2", "Can you elaborate?", "default");
+
+      await insertData("Productivity 1",
+          "Generate various solutions to [problem]\nproblem: ", "default");
+
+      await insertData(
+          "Productivity 2",
+          "How can I make [task] more enjoyable or engaging?\ntask: ",
+          "default");
+
+      await insertData(
+          "Marketing 1",
+          "Evaluate the viability of launching a business in [business idea] while targeting [target audience]\nbusiness idea:\ntarget audience:",
+          "default");
+
+      await insertData(
+          "Entreprenuership 1",
+          "In short, what are the key elements I should have within my pitch deck?",
+          "default");
+    }
   }
 
   //For debugging purposes
@@ -86,55 +128,5 @@ class PromptStorageHelper {
       debugPrint('Status: $status');
       debugPrint('-----------------------');
     }
-
-    db.close();
-  }
-
-  Future<int> updateData(
-      int id, String title, String prompt, String status) async {
-    Database db = await database;
-    Map<String, dynamic> data = {
-      'title': title,
-      'prompt': prompt,
-      'status': status,
-    };
-    return await db
-        .update('prompt_table', data, where: 'id = ?', whereArgs: [id]);
-  }
-
-  Future<int> deleteAllData() async {
-    debugPrint("Deleted the prompt table!");
-    Database db = await database;
-    return await db.delete('prompt_table');
-  }
-
-  Future<void> deleteTable() async {
-    Database db = await database;
-    await db.execute('DROP TABLE IF EXISTS prompt_table');
-  }
-
-  Future<void> _initializeDefaultPrompts(Database db) async {
-    debugPrint("Initializing Preset Prompts...");
-    insertData(
-        "Follow-Up 1", "Explain that again to me but like I'm 10", "default");
-
-    insertData("Follow-Up 2", "Can you elaborate?", "default");
-
-    insertData("Productivity 1",
-        "Generate various solutions to [problem]\nproblem: ", "default");
-
-    insertData("Productivity 2",
-        "How can I make [task] more enjoyable or engaging?\ntask: ", "default");
-
-    insertData(
-        "Marketing 1",
-        "Evaluate the viability of launching a business in [business idea] while targeting [target audience]\nbusiness idea:\ntarget audience:",
-        "default");
-
-    insertData(
-        "Entreprenuership 1",
-        "In short, what are the key elements I should have within my pitch deck?",
-        "default");
-    debugPrint("...Initialized Preset Prompts");
   }
 }

@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../database/api_key_storage_helper.dart';
-import '../database/prompt_storage_helper.dart';
 import '../widgets/home_screen/export_home_screen_widgets.dart';
 import '../controllers/input_question_controller.dart';
 
 class Home extends StatefulWidget {
   final APIKeyStorageHelper apiKeyStorageHelper;
-  final PromptStorageHelper promptStorageHelper;
 
-  const Home(
-      {super.key,
-      required this.apiKeyStorageHelper,
-      required this.promptStorageHelper});
+  const Home({
+    super.key,
+    required this.apiKeyStorageHelper,
+  });
 
   @override
   State<Home> createState() => _HomeState();
@@ -70,9 +68,9 @@ class _HomeState extends State<Home> {
                     Row(
                       children: <Widget>[
                         InputPromptButton(
-                            inputQuestionController:
-                                inputQuestionEditingController,
-                            promptStorageHelper: widget.promptStorageHelper),
+                          inputQuestionController:
+                              inputQuestionEditingController,
+                        ),
                         const SizedBox(width: 15),
                         InputClearButton(
                           controller: inputQuestionEditingController,
