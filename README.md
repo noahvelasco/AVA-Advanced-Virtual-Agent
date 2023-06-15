@@ -28,16 +28,15 @@
 - [x] Store user gpt and elevenlabs slider configuations (volatile)
 - [x] Introduction page for initial user setup
 - [x] Store user API keys using secure storage (non volatile memory)
-- [ ] Preset prompt selection using sqflite 
-- [ ] Custom prompt creation/deletion using sqflite
+- [x] Preset prompt selection using sqflite
 - [ ] Comment cleanup
 - [ ] Documentation
 
 ---
 ## How to use
-1. Download this repository
-2. Run `flutter pub get` in `./ava_v2`
-3. Run `flutter run` in `./ava_v2/lib/main.dart`
+1. Download flutter
+2. Download this repo
+3. `flutter run` in `./ava_v2/lib/main.dart`
 
 ---
 
