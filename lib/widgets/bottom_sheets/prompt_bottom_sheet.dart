@@ -40,19 +40,22 @@ class _PromptBottomSheetState extends State<PromptBottomSheet> {
     return SizedBox(
       height: height * .75,
       child: Scrollbar(
+        thumbVisibility: true,
+        radius: const Radius.circular(5.0),
+        thickness: 5,
         child: ListView.builder(
           itemCount: widget.promptList?.length,
           itemBuilder: (context, index) {
             final item = widget.promptList?[index];
-            // final title = item['title'];
+            final title = item?['title'];
             final prompt = item?['prompt'];
             // final status = item['status'];
 
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(15.0),
               child: SizedBox(
-                width: width * .80,
-                height: height * .16,
+                width: width,
+                height: height * .09,
                 child: NeumorphicButton(
                   minDistance: -5,
                   style: NeumorphicStyle(
@@ -70,13 +73,18 @@ class _PromptBottomSheetState extends State<PromptBottomSheet> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      // Text(
-                      //   title,
-                      //   style: const TextStyle(
-                      //     fontSize: 20,
-                      //     fontStyle: FontStyle.italic,
-                      //   ),
-                      // ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            title,
+                            style: const TextStyle(
+                              fontSize: 10,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
+                      ),
                       Scrollbar(
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
