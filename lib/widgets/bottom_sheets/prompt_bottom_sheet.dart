@@ -1,12 +1,8 @@
-import 'package:ava_v2/controllers/export_controllers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
 
-import '../../database/prompt_storage_helper.dart';
+import '../../controllers/export_controllers.dart';
 import '../../providers/theme_provider.dart';
-
-//TODO - fix duplicates issue and issue with not showing prompts until clicking on it twice
 
 class PromptBottomSheet extends StatefulWidget {
   final InputQuestionController inputQuestionController;
@@ -26,27 +22,6 @@ class _PromptBottomSheetState extends State<PromptBottomSheet> {
   @override
   void initState() {
     super.initState();
-
-    /*
-      Debugging purposes only - comment 'await promptStorageHelper.database;' 
-      and uncomment below to delete DB 
-    */
-
-    // debugPrint("Printing Table");
-    // widget.promptList.printTableData();
-
-    // _promptStorageHelper.deleteTable();
-    // debugPrint("Deleted Table");
-
-    // _promptStorageHelper.deleteDB();
-    // debugPrint("Deleted DB");
-    debugPrint("--->>" + widget.promptList.toString());
-    rebuildScreen();
-  }
-
-  void rebuildScreen() {
-    //trigger a rebuild - this is a bug probably? The database wont show unless I rebuild
-    setState(() {});
   }
 
   @override

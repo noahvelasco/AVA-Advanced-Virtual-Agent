@@ -81,11 +81,12 @@ class PromptStorageHelper {
     debugPrint(
         '\n\n ===============\n Initializing Default Prompts... \n===============\n\n');
     if (existingPrompts.isEmpty) {
-      await insertData("Follow-Up 1", "Are you sure?", "default");
-      await insertData("Follow-Up 2", "Why?", "default");
-      await insertData("Follow-Up 3", "Tell me more.", "default");
+      await insertData("Follow-Up 1", "WWJD?", "default");
+      await insertData("Follow-Up 2", "Are you sure?", "default");
+      await insertData("Follow-Up 3", "Why?", "default");
+      await insertData("Follow-Up 4", "Tell me more.", "default");
       await insertData(
-          "Follow-Up 4", "Explain that again to me but like I'm 10", "default");
+          "Follow-Up 5", "Explain that again to me but like I'm 10", "default");
     }
     debugPrint(
         '\n\n ===============\n Initialized Default Prompts... \n===============\n\n');
