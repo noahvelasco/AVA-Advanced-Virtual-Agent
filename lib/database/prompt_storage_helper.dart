@@ -40,19 +40,13 @@ class PromptStorageHelper {
   }
 
   Future<void> _createDatabase(Database db, int version) async {
-    db.execute('''
-      CREATE TABLE prompt_table (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT,
-        prompt TEXT,
-        status TEXT
-      )
-    ''');
+    await db.execute(
+        'CREATE TABLE prompt_table (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, prompt TEXT, status TEXT)');
   }
 
   Future<int> insertData(String title, String prompt, String status) async {
     Database db = await database;
-    Map<String, dynamic> data = {
+    Map<String, String> data = {
       'title': title,
       'prompt': prompt,
       'status': status,
@@ -84,30 +78,14 @@ class PromptStorageHelper {
 
   Future<void> _initializeDefaultPrompts(Database db) async {
     final existingPrompts = await db.query('prompt_table');
+    debugPrint(
+        '\n\n ===============\n Initializing Default Prompts... \n==================\n\n');
     if (existingPrompts.isEmpty) {
       await insertData(
           "Follow-Up 1", "Explain that again to me but like I'm 10", "default");
-
-      await insertData("Follow-Up 2", "Can you elaborate?", "default");
-
-      await insertData("Productivity 1",
-          "Generate various solutions to [problem]\nproblem: ", "default");
-
-      await insertData(
-          "Productivity 2",
-          "How can I make [task] more enjoyable or engaging?\ntask: ",
-          "default");
-
-      await insertData(
-          "Marketing 1",
-          "Evaluate the viability of launching a business in [business idea] while targeting [target audience]\nbusiness idea:\ntarget audience:",
-          "default");
-
-      await insertData(
-          "Entreprenuership 1",
-          "In short, what are the key elements I should have within my pitch deck?",
-          "default");
     }
+    debugPrint(
+        '\n\n ===============\n Initialized Default Prompts... \n==================\n\n');
   }
 
   //For debugging purposes

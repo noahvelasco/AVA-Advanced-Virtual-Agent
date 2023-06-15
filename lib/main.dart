@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'database/api_key_storage_helper.dart';
+import 'database/prompt_storage_helper.dart';
 import 'providers/export_providers.dart';
 import 'views/home_screen.dart';
 import 'views/onboarding_screen.dart';
@@ -19,23 +20,30 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  //-------------------------------------------------------------------------------------
   /*
   Secure storage created at root of widget tree so it's available in 
   onboarding_screen.dart & home_screen.dart for both the API keys.
   */
   final APIKeyStorageHelper apiKeyStorageHelper = APIKeyStorageHelper();
 
-  //instantiate the prompt storage database object and its functions
-  // final PromptStorageHelper promptStorageHelper = PromptStorageHelper();
+/*
+Setup Database 
+
+promptStorageHelper - 
+promptStorageHelper.database -
+promptList -
+ */
+  final PromptStorageHelper promptStorageHelper = PromptStorageHelper();
+  await promptStorageHelper.database;
+  final List<Map> promptList = await promptStorageHelper.getAllData();
 
   // promptStorageHelper.deleteTable();
   // debugPrint("Deleted Table");
 
   // promptStorageHelper.deleteDB();
   // debugPrint("Deleted DB");
-
-  //Get the database object from promptStorageHelper
-  // final Database database = await promptStorageHelper.database;
+  //----------------------------------------------------------------------------------------
 
   runApp(
     MultiProvider(
@@ -65,18 +73,31 @@ void main() async {
       //pass the api key database and the prompt database helpers to the main app
       child: Ava(
         apiKeyStorageHelper: apiKeyStorageHelper,
+        promptList: promptList,
       ),
     ),
   );
 }
 
-class Ava extends StatelessWidget {
+class Ava extends StatefulWidget {
   final APIKeyStorageHelper apiKeyStorageHelper;
+  final List<Map>? promptList;
 
   const Ava({
     Key? key,
     required this.apiKeyStorageHelper,
+    required this.promptList,
   }) : super(key: key);
+
+  @override
+  State<Ava> createState() => _AvaState();
+}
+
+class _AvaState extends State<Ava> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +186,8 @@ class Ava extends StatelessWidget {
           themeMode: provider.theme,
           home: Home(
             //pass the same secure storage object down to home now so we can print this in the settings section
-            apiKeyStorageHelper: apiKeyStorageHelper,
+            apiKeyStorageHelper: widget.apiKeyStorageHelper,
+            promptList: widget.promptList,
           ),
           // home: OnBoardingPage(
           //   apiKeyStorageHelper: apiKeyStorageHelper,

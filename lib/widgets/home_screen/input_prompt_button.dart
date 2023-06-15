@@ -10,10 +10,12 @@ import '../bottom_sheets/prompt_bottom_sheet.dart';
 
 class InputPromptButton extends StatefulWidget {
   final InputQuestionController inputQuestionController;
+  final List<Map>? promptList;
 
   const InputPromptButton({
     super.key,
     required this.inputQuestionController,
+    required this.promptList,
   });
 
   @override
@@ -61,6 +63,7 @@ class _InputPromptButtonState extends State<InputPromptButton> {
               builder: (BuildContext context) {
                 return PromptBottomSheet(
                   inputQuestionController: widget.inputQuestionController,
+                  promptList: widget.promptList,
                 );
               });
         },

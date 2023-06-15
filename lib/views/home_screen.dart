@@ -6,10 +6,12 @@ import '../controllers/input_question_controller.dart';
 
 class Home extends StatefulWidget {
   final APIKeyStorageHelper apiKeyStorageHelper;
+  final List<Map>? promptList;
 
   const Home({
     super.key,
     required this.apiKeyStorageHelper,
+    required this.promptList,
   });
 
   @override
@@ -70,6 +72,7 @@ class _HomeState extends State<Home> {
                         InputPromptButton(
                           inputQuestionController:
                               inputQuestionEditingController,
+                          promptList: widget.promptList,
                         ),
                         const SizedBox(width: 15),
                         InputClearButton(
