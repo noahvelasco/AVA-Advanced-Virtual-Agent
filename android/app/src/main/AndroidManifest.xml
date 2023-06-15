@@ -2,7 +2,7 @@
     package="com.example.ava_v2">
    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="ava_v2"
+        android:label="AVA"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">
