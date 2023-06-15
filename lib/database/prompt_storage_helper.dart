@@ -79,13 +79,16 @@ class PromptStorageHelper {
   Future<void> _initializeDefaultPrompts(Database db) async {
     final existingPrompts = await db.query('prompt_table');
     debugPrint(
-        '\n\n ===============\n Initializing Default Prompts... \n==================\n\n');
+        '\n\n ===============\n Initializing Default Prompts... \n===============\n\n');
     if (existingPrompts.isEmpty) {
+      await insertData("Follow-Up 1", "Are you sure?", "default");
+      await insertData("Follow-Up 2", "Why?", "default");
+      await insertData("Follow-Up 3", "Tell me more.", "default");
       await insertData(
-          "Follow-Up 1", "Explain that again to me but like I'm 10", "default");
+          "Follow-Up 4", "Explain that again to me but like I'm 10", "default");
     }
     debugPrint(
-        '\n\n ===============\n Initialized Default Prompts... \n==================\n\n');
+        '\n\n ===============\n Initialized Default Prompts... \n===============\n\n');
   }
 
   //For debugging purposes
