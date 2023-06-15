@@ -74,7 +74,8 @@ class GPTAPIViewModel extends ChangeNotifier {
         chatHistoryProvider.addGPTResponse(answer);
       } else {
         Map<String, dynamic> responseJson = json.decode(response.body);
-        String errorSummary = responseJson['error']['message'];
+        String errorSummary = responseJson['error']['code'] +
+            "\n\nPlease update your GPT API key and confirm it in the settings section!";
         chatHistoryProvider.addGPTResponse(errorSummary);
       }
     } catch (e) {
