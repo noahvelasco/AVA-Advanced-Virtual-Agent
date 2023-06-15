@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../../database/api_key_storage_helper.dart';
 
-//TODO - add a check mark button to each of the text fields
 class SettingsBottomSheet extends StatefulWidget {
   final APIKeyStorageHelper apiKeyStorageHelper;
   const SettingsBottomSheet({super.key, required this.apiKeyStorageHelper});
@@ -22,7 +21,6 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
   void initState() {
     super.initState();
     initializeControllers();
-    //widget.apiKeyStorageHelper.getElevenLabsKey() as String;
   }
 
   @override
@@ -256,7 +254,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                 height: height * .075,
               ),
               Text(
-                "Creativity",
+                "GPT Temperature",
                 style: textTheme.bodyMedium,
               ),
               Row(
