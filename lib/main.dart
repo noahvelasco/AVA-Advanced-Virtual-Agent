@@ -21,7 +21,7 @@ void main() async {
   ]);
 
   final prefs = await SharedPreferences.getInstance();
-  final showHome = prefs.getBool('showHome') ?? false;
+  final bool showHome = prefs.getBool('showHome') ?? false;
 
   //-------------------------------------------------------------------------------------
   /*
@@ -33,9 +33,9 @@ void main() async {
 /*
 Setup Database 
 
-promptStorageHelper - 
-promptStorageHelper.database -
-promptList -
+promptStorageHelper - where the DB object and its helper functions are
+promptStorageHelper.database - instantiates the database
+promptList - the list of prompts from the database object in promptStorageHelper
  */
   final PromptStorageHelper promptStorageHelper = PromptStorageHelper();
   await promptStorageHelper.database;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../database/api_key_storage_helper.dart';
 import '../widgets/home_screen/export_home_screen_widgets.dart';
@@ -24,6 +26,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    playWelcomeMessage();
 
     //set the initial text for the controllers here
     inputQuestionEditingController = InputQuestionController();
@@ -35,6 +38,29 @@ class _HomeState extends State<Home> {
     // Dispose of the controller when no longer needed
     inputQuestionEditingController.dispose();
     super.dispose();
+  }
+
+  void playWelcomeMessage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? hasBeenPlayed = prefs.getBool('welcomeMessagePlayed') ?? false;
+    debugPrint("hasBeenPlayed is $hasBeenPlayed");
+
+    //if the welcome message hasnt been played then play it
+    if (hasBeenPlayed == false) {
+      AudioPlayer audioPlayer = AudioPlayer();
+
+      try {
+        await audioPlayer.setAsset('../../assets/audio/WelcomeMessage.mp3');
+        await audioPlayer.play();
+      } catch (e) {
+        debugPrint('Error playing audio: $e');
+      } finally {
+        audioPlayer.dispose();
+      }
+
+      // Set the flag to indicate it has been played
+      await prefs.setBool('welcomeMessagePlayed', true);
+    }
   }
 
   @override
