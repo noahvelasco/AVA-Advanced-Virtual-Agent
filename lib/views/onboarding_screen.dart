@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../database/api_key_storage_helper.dart';
@@ -13,7 +14,7 @@ import '../database/api_key_storage_helper.dart';
 class OnBoardingPage extends StatefulWidget {
   //APIKeyStorageHelper below is being given from the main.dart.
   final APIKeyStorageHelper apiKeyStorageHelper;
-  final promptList;
+  final List<Map>? promptList;
 
   const OnBoardingPage({
     super.key,
@@ -52,7 +53,11 @@ class OnBoardingPageState extends State<OnBoardingPage> {
     fontSize: 16.0,
   );
 
-  void _onIntroEnd(context) {
+  void _onIntroEnd(context) async {
+    //set bool to true so this page is only shown once
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('showHome', true);
+
     //Pass the value of the API Keys to the Home Screen if they are valid
     Navigator.of(context).push(
       MaterialPageRoute(

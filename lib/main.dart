@@ -1,4 +1,4 @@
-import 'package:ava_v2/view_models/export_view_models.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import 'database/api_key_storage_helper.dart';
 import 'database/prompt_storage_helper.dart';
 import 'providers/export_providers.dart';
+import '../view_models/export_view_models.dart';
 import 'views/home_screen.dart';
 import 'views/onboarding_screen.dart';
 
-//TODO - fix the initialize DB issues
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -19,6 +19,9 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  final prefs = await SharedPreferences.getInstance();
+  final showHome = prefs.getBool('showHome') ?? false;
 
   //-------------------------------------------------------------------------------------
   /*
@@ -38,11 +41,6 @@ promptList -
   await promptStorageHelper.database;
   final List<Map> promptList = await promptStorageHelper.getAllData();
 
-  // promptStorageHelper.deleteTable();
-  // debugPrint("Deleted Table");
-
-  // promptStorageHelper.deleteDB();
-  // debugPrint("Deleted DB");
   //----------------------------------------------------------------------------------------
 
   runApp(
@@ -74,17 +72,20 @@ promptList -
       child: Ava(
         apiKeyStorageHelper: apiKeyStorageHelper,
         promptList: promptList,
+        showHome: showHome,
       ),
     ),
   );
 }
 
 class Ava extends StatefulWidget {
+  final bool showHome;
   final APIKeyStorageHelper apiKeyStorageHelper;
   final List<Map>? promptList;
 
   const Ava({
     Key? key,
+    required this.showHome,
     required this.apiKeyStorageHelper,
     required this.promptList,
   }) : super(key: key);
@@ -184,14 +185,16 @@ class _AvaState extends State<Ava> {
             ),
           ),
           themeMode: provider.theme,
-          home: Home(
-            //pass the same secure storage object down to home now so we can print this in the settings section
-            apiKeyStorageHelper: widget.apiKeyStorageHelper,
-            promptList: widget.promptList,
-          ),
-          // home: OnBoardingPage(
-          //   apiKeyStorageHelper: apiKeyStorageHelper,
-          // ),
+          home: widget.showHome
+              ? Home(
+                  //pass the same secure storage object down to home now so we can print this in the settings section
+                  apiKeyStorageHelper: widget.apiKeyStorageHelper,
+                  promptList: widget.promptList,
+                )
+              : OnBoardingPage(
+                  apiKeyStorageHelper: widget.apiKeyStorageHelper,
+                  promptList: widget.promptList,
+                ),
         );
       },
     );
