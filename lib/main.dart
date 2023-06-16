@@ -187,7 +187,6 @@ class _AvaState extends State<Ava> {
           themeMode: provider.theme,
           home: widget.showHome
               ? Home(
-                  //pass the same secure storage object down to home now so we can print this in the settings section
                   apiKeyStorageHelper: widget.apiKeyStorageHelper,
                   promptList: widget.promptList,
                 )
