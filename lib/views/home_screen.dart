@@ -8,7 +8,7 @@ import '../controllers/input_question_controller.dart';
 
 class Home extends StatefulWidget {
   final APIKeyStorageHelper apiKeyStorageHelper;
-  final List<Map>? promptList;
+  final List<Map<String, dynamic>> promptList;
 
   const Home({
     super.key,
@@ -43,7 +43,6 @@ class _HomeState extends State<Home> {
   void playWelcomeMessage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? hasBeenPlayed = prefs.getBool('welcomeMessagePlayed') ?? false;
-    debugPrint("hasBeenPlayed is $hasBeenPlayed");
 
     //if the welcome message hasnt been played then play it
     if (hasBeenPlayed == false) {

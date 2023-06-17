@@ -23,7 +23,6 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final bool showHome = prefs.getBool('showHome') ?? false;
 
-  //-------------------------------------------------------------------------------------
   /*
   Secure storage created at root of widget tree so it's available in 
   onboarding_screen.dart & home_screen.dart for both the API keys.
@@ -39,9 +38,8 @@ promptList - the list of prompts from the database object in promptStorageHelper
  */
   final PromptStorageHelper promptStorageHelper = PromptStorageHelper();
   await promptStorageHelper.database;
-  final List<Map> promptList = await promptStorageHelper.getAllData();
-
-  //----------------------------------------------------------------------------------------
+  List<Map<String, dynamic>> promptList =
+      await promptStorageHelper.getAllData();
 
   runApp(
     MultiProvider(
@@ -81,7 +79,7 @@ promptList - the list of prompts from the database object in promptStorageHelper
 class Ava extends StatefulWidget {
   final bool showHome;
   final APIKeyStorageHelper apiKeyStorageHelper;
-  final List<Map>? promptList;
+  final List<Map<String, dynamic>> promptList;
 
   const Ava({
     Key? key,

@@ -10,7 +10,7 @@ import '../bottom_sheets/prompt_bottom_sheet.dart';
 
 class InputPromptButton extends StatefulWidget {
   final InputQuestionController inputQuestionController;
-  final List<Map>? promptList;
+  final List<Map<String, dynamic>> promptList;
 
   const InputPromptButton({
     super.key,

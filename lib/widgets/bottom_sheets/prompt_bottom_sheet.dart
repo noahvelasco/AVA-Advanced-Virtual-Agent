@@ -6,13 +6,13 @@ import '../../providers/theme_provider.dart';
 
 class PromptBottomSheet extends StatefulWidget {
   final InputQuestionController inputQuestionController;
-  final List<Map>? promptList;
+  final List<Map<String, dynamic>> promptList;
 
   const PromptBottomSheet({
-    super.key,
+    Key? key,
     required this.inputQuestionController,
     required this.promptList,
-  });
+  }) : super(key: key);
 
   @override
   State<PromptBottomSheet> createState() => _PromptBottomSheetState();
@@ -44,15 +44,14 @@ class _PromptBottomSheetState extends State<PromptBottomSheet> {
         radius: const Radius.circular(5.0),
         thickness: 5,
         child: ListView.builder(
-          itemCount: widget.promptList?.length,
+          itemCount: widget.promptList.length,
           itemBuilder: (context, index) {
-            final item = widget.promptList?[index];
-            final title = item?['title'];
-            final prompt = item?['prompt'];
-            // final status = item['status'];
+            final item = widget.promptList[index];
+            final title = item['title'];
+            final prompt = item['prompt'];
 
             return Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(13.0),
               child: SizedBox(
                 width: width,
                 height: height * .09,
@@ -68,7 +67,7 @@ class _PromptBottomSheetState extends State<PromptBottomSheet> {
                     depth: 2,
                     shape: NeumorphicShape.flat,
                     boxShape:
-                        NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),
+                        NeumorphicBoxShape.roundRect(BorderRadius.circular(16)),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

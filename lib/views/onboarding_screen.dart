@@ -14,8 +14,7 @@ import '../database/api_key_storage_helper.dart';
 class OnBoardingPage extends StatefulWidget {
   //APIKeyStorageHelper below is being given from the main.dart.
   final APIKeyStorageHelper apiKeyStorageHelper;
-  final List<Map>? promptList;
-
+  final List<Map<String, dynamic>> promptList;
   const OnBoardingPage({
     super.key,
     required this.apiKeyStorageHelper,
@@ -466,7 +465,14 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ],
       onDone: () => _onIntroEnd(context),
-      showSkipButton: false,
+      showSkipButton: true,
+      skip: const Text(
+        "Skip",
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          color: Color(0xFFE7ECEF),
+        ),
+      ),
       skipOrBackFlex: 0,
       nextFlex: 0,
       showNextButton: false,

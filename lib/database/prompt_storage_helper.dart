@@ -34,7 +34,7 @@ class PromptStorageHelper {
     );
 
     //after creating db then initialize the prompts
-    _initializeDefaultPrompts(db);
+    await _initializeDefaultPrompts(db);
 
     return db;
   }
@@ -44,20 +44,9 @@ class PromptStorageHelper {
         'CREATE TABLE prompt_table (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, prompt TEXT, status TEXT)');
   }
 
-  Future<int> insertData(String title, String prompt, String status) async {
-    Database db = await database;
-    Map<String, String> data = {
-      'title': title,
-      'prompt': prompt,
-      'status': status,
-    };
-    return await db.insert('prompt_table', data);
-  }
-
   Future<List<Map<String, dynamic>>> getAllData() async {
-    debugPrint("GETTING DATA");
     Database db = await database;
-    return await db.query('prompt_table');
+    return db.query('prompt_table');
   }
 
   Future<void> deleteTable() async {
@@ -79,17 +68,46 @@ class PromptStorageHelper {
   Future<void> _initializeDefaultPrompts(Database db) async {
     final existingPrompts = await db.query('prompt_table');
     debugPrint(
-        '\n\n ===============\n Initializing Default Prompts... \n===============\n\n');
+        '\n\n==============================\n Initializing Default Prompts...\n==============================\n\n');
     if (existingPrompts.isEmpty) {
-      await insertData("Follow-Up 1", "WWJD?", "default");
-      await insertData("Follow-Up 2", "Are you sure?", "default");
-      await insertData("Follow-Up 3", "Why?", "default");
-      await insertData("Follow-Up 4", "Tell me more.", "default");
-      await insertData(
-          "Follow-Up 5", "Explain that again to me but like I'm 10", "default");
+      await db.insert('prompt_table', {
+        'title': 'Follow-Up 1',
+        'prompt': 'Are you sure?',
+        'status': 'default'
+      });
+
+      await db.insert('prompt_table',
+          {'title': 'Follow-Up 2', 'prompt': 'Why?', 'status': 'default'});
+
+      await db.insert('prompt_table', {
+        'title': 'Follow-Up 1',
+        'prompt': 'Tell me more?',
+        'status': 'default'
+      });
+
+      await db.insert('prompt_table',
+          {'title': 'Follow-Up 4', 'prompt': 'WWJD?', 'status': 'default'});
+
+      await db.insert('prompt_table', {
+        'title': 'Follow-Up 5',
+        'prompt': 'Explain that again to me but like I\'m 10?',
+        'status': 'default'
+      });
+
+      await db.insert('prompt_table', {
+        'title': 'Follow-Up 6',
+        'prompt': 'Has this be proven scientifically?',
+        'status': 'default'
+      });
+
+      await db.insert('prompt_table', {
+        'title': 'Follow-Up 7',
+        'prompt': 'What are the sources for this claim?',
+        'status': 'default'
+      });
     }
     debugPrint(
-        '\n\n ===============\n Initialized Default Prompts... \n===============\n\n');
+        '\n\n==============================\n Initialized Default Prompts...\n==============================\n\n');
   }
 
   //For debugging purposes
