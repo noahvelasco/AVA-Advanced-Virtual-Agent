@@ -1,5 +1,3 @@
-// ignore: unnecessary_import
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,8 +8,7 @@ import '../../providers/theme_provider.dart';
 class InputClearButton extends StatefulWidget {
 //Text editing controller is being passed into here and will be 'controller'
   final InputQuestionController controller;
-  // ignore: use_key_in_widget_constructors
-  const InputClearButton({required this.controller});
+  const InputClearButton({super.key, required this.controller});
   @override
   State<InputClearButton> createState() => _InputClearButtonState();
 }

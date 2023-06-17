@@ -1,10 +1,8 @@
-// ignore: unnecessary_import
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../controllers/input_question_controller.dart';
 
+import '../../controllers/input_question_controller.dart';
 import '../../database/api_key_storage_helper.dart';
 import '../../providers/theme_provider.dart';
 import '../../view_models/gpt_api_view_model.dart';
@@ -16,8 +14,8 @@ class InputSubmitButton extends StatefulWidget {
   //Text editing controller is being passed into here and will be 'controller'
   final InputQuestionController controller;
 
-  // ignore: use_key_in_widget_constructors
   const InputSubmitButton({
+    super.key,
     required this.apiKeyStorageHelper,
     required this.controller,
   });

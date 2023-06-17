@@ -1,8 +1,8 @@
-import 'package:ava_v2/providers/export_providers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/export_providers.dart';
 import '../../database/api_key_storage_helper.dart';
 
 class SettingsBottomSheet extends StatefulWidget {
@@ -44,7 +44,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    //All setting presets: api keys, and slider values
+    //All slider values given with settingsProvider
     final settingsProvider = Provider.of<SettingsProvider>(context);
     final provider = Provider.of<ThemeProvider>(context);
 
@@ -375,8 +375,18 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: height * .05,
+              Padding(
+                padding: EdgeInsets.only(
+                  top: width * .05,
+                  left: width * .10,
+                  right: width * .15,
+                  bottom: width * .025,
+                ),
+                child: Text(
+                  "Both API keys are locally and securely stored using Flutter Secure Storage",
+                  style: textTheme.bodySmall!
+                      .copyWith(fontStyle: FontStyle.italic),
+                ),
               ),
             ],
           ),

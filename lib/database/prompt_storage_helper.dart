@@ -1,8 +1,3 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-
 /*
 Prompt database:
 
@@ -10,6 +5,11 @@ title: title for prompt
 prompt: the full prompt text that will user will use
 status: default or custom to identify which can be edited/deleted. Default stays.
 */
+
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class PromptStorageHelper {
   static Database? _database;

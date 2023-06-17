@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
     super.initState();
     playWelcomeMessage();
 
-    //set the initial text for the controllers here
+    //set the initial text for the input controller here
     inputQuestionEditingController = InputQuestionController();
     inputQuestionEditingController.setText("");
   }

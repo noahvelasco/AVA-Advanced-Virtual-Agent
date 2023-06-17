@@ -1,17 +1,15 @@
-// ignore: unnecessary_import
-import 'package:ava_v2/providers/export_providers.dart';
-import '../../view_models/gpt_api_view_model.dart';
-import '../../controllers/input_question_controller.dart';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/export_providers.dart';
+import '../../view_models/gpt_api_view_model.dart';
+import '../../controllers/input_question_controller.dart';
+
 class InputBox extends StatefulWidget {
   //Text editing controller is being passed into here and will be 'controller'
   final InputQuestionController controller;
-  // ignore: use_key_in_widget_constructors
-  const InputBox({required this.controller});
+  const InputBox({super.key, required this.controller});
 
   @override
   State<InputBox> createState() => _InputBoxState();
@@ -22,8 +20,6 @@ class _InputBoxState extends State<InputBox> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
-    // gptAPIViewModel.dispose();
     super.dispose();
   }
 

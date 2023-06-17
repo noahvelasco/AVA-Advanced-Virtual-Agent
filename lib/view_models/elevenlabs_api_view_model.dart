@@ -1,12 +1,12 @@
-import 'package:ava_v2/database/api_key_storage_helper.dart';
-import 'package:ava_v2/providers/export_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:provider/provider.dart';
+
+import '../database/api_key_storage_helper.dart';
+import '../providers/export_providers.dart';
 
 class ELAPIViewModel extends ChangeNotifier {
 //For the Text To Speech
@@ -14,11 +14,6 @@ class ELAPIViewModel extends ChangeNotifier {
     BuildContext context,
     APIKeyStorageHelper apiStorage,
   ) async {
-    //display the loading icon while we wait for request
-    // setState(() {
-    //   _isLoadingVoice = true; //progress indicator
-    // });
-
     final settingsProvider =
         Provider.of<SettingsProvider>(context, listen: false);
 

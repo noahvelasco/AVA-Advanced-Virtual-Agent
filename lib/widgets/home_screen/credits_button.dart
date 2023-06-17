@@ -3,10 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/theme_provider.dart';
-
 import '../../views/credits_screen.dart';
-
-//This button is called in the home screen @ lib\views\home_screen
 
 class CreditsButton extends StatefulWidget {
   const CreditsButton({super.key});

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChatHistoryProvider extends ChangeNotifier {
-  // ignore: prefer_final_fields
-  List<Map<String, String>> _chatHistory = [
+  final List<Map<String, String>> _chatHistory = [
     {"role": "system", "content": "You are a helpful assistant named ava."},
     {"role": "assistant", "content": "Hi, my name is Ava."},
   ];

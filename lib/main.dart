@@ -1,3 +1,11 @@
+/*
+
+Created by Noah Velasco
+
+Instructions: Run this file to start the entire program
+    - to update prompts visit ./lib/database/prompt_storage_helper.dart
+*/
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -66,7 +74,7 @@ promptList - the list of prompts from the database object in promptStorageHelper
           create: (_) => ChatHistoryProvider(),
         ),
       ],
-      //pass the api key database and the prompt database helpers to the main app
+      //pass the api key database and the prompt list to the main app
       child: Ava(
         apiKeyStorageHelper: apiKeyStorageHelper,
         promptList: promptList,

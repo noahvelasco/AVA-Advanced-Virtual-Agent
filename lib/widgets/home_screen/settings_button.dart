@@ -1,17 +1,15 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '../../database/api_key_storage_helper.dart';
-import '../bottom_sheets/settings_bottom_sheet.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/theme_provider.dart';
+import '../../database/api_key_storage_helper.dart';
+import '../bottom_sheets/settings_bottom_sheet.dart';
 
-// ignore: must_be_immutable
 class SettingsButton extends StatefulWidget {
-  APIKeyStorageHelper apiKeyStorageHelper;
+  final APIKeyStorageHelper apiKeyStorageHelper;
 
-  // ignore: use_key_in_widget_constructors
-  SettingsButton({required this.apiKeyStorageHelper});
+  const SettingsButton({super.key, required this.apiKeyStorageHelper});
 
   @override
   State<SettingsButton> createState() => _SettingsButtonState();

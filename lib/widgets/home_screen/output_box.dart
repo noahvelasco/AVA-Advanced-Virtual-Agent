@@ -1,9 +1,10 @@
-import 'package:ava_v2/providers/export_providers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
+import '../../providers/export_providers.dart';
 
 class OutputBox extends StatefulWidget {
   const OutputBox({super.key});

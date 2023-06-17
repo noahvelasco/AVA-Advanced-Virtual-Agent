@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../database/api_key_storage_helper.dart';
 
 class OnBoardingPage extends StatefulWidget {
-  //APIKeyStorageHelper below is being given from the main.dart.
+  //APIKeyStorageHelper and promptList below given from the main.dart.
   final APIKeyStorageHelper apiKeyStorageHelper;
   final List<Map<String, dynamic>> promptList;
   const OnBoardingPage({
@@ -146,7 +146,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         ),
         PageViewModel(
           title: "GPT API Key Setup",
-          body: "Enter your OpenAI GPT-3.5-Turbo Key",
+          body:
+              "Enter your OpenAI GPT-3.5-Turbo key or visit their website below to get it!",
           image: _buildLottieImage('outlined_circle.json', true, 500),
           decoration: pageDecoration,
           footer: Column(
@@ -295,7 +296,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         ),
         PageViewModel(
           title: "ElevenLabs API Key Setup",
-          body: "Enter your ElevenLabs API Key",
+          body:
+              "Enter your ElevenLabs key or visit their website below to get it!",
           image: _buildLottieImage('outlined_circle.json', true, 500),
           decoration: pageDecoration,
           footer: Column(
@@ -445,7 +447,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Prompts",
           body:
-              "Enhance your experience in AVA by using the prompts feature or by creating your own.",
+              "Enhance your experience in AVA by using the prompts feature 💡",
           image: _buildLottieImage('triple_ven_diagram.json', true),
           decoration: pageDecoration,
         ),

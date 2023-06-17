@@ -1,5 +1,5 @@
 /*
-This is a 'dataabase' that stores the api keys using
+This is a 'database' that stores the api keys using
 flutter_secure_storage.
 
 Since api keys are sensitive - this requires more attention 

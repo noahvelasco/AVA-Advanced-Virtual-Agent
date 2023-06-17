@@ -1,10 +1,9 @@
-// ignore: unnecessary_import
-import 'package:ava_v2/providers/export_providers.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import '../../database/api_key_storage_helper.dart';
 import '../../view_models/export_view_models.dart';
+import '../../providers/export_providers.dart';
 
 class OutputTTSButton extends StatefulWidget {
   //Is being passed down from home and will be sent to "fetchGPTResponse()"
