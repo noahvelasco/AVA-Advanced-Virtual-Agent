@@ -13,9 +13,25 @@
 <a href="https://flutter.dev" target="_blank" rel="noreferrer"><img src="https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" alt="flutter" width="40" height="40"/></a><a href="https://beta.elevenlabs.io/" target="_blank" rel="noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Eleven_Labs.png" alt="flutter" height="40"/></a><a href="https://openai.com/blog/chatgpt" target="_blank" rel="noreferrer"> <img src="https://i.insider.com/63ef9e660270b1001984d9ce?width=1300&format=jpeg&auto=webp" alt="flutter" height="40"/></a><a href="https://pub.dev/packages/sqflite" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-ar21.svg" alt="flutter" height="40"/></a>
 </p>
 
+
+---
+## Preview
+<p align="center">
+<img src=".\app_screenshots\home.png" alt="flutter" height="500"/>
+<img src=".\app_screenshots\settings.png" alt="flutter" height="500"/>
+<img src=".\app_screenshots\credits.png" alt="flutter" height="500"/>
+</p>
+
+
 ---
 ## Live Demo
-- TBA
+
+<p align =center>
+<a href = "https://youtu.be/Li2T6gfwauY"><img src="https://i.ytimg.com/an_webp/Li2T6gfwauY/mqdefault_6s.webp?du=3000&sqp=CJKotKQG&rs=AOn4CLDSNZgVQnij7Slvgi13fq0sy_QljA" alt="ava demo" height="200"/></a>
+
+<h3><a href = "https://youtu.be/Li2T6gfwauY">Demo Link (Youtube)</a></h3>
+
+</p>
 
 ---
 ## Features & TODO's
@@ -29,8 +45,8 @@
 - [x] Introduction page for initial user setup
 - [x] Store user API keys using secure storage (non volatile memory)
 - [x] Preset prompt selection using sqflite
-- [ ] Comment cleanup
-- [ ] Documentation
+- [x] Comment cleanup
+- [x] Documentation
 
 ---
 ## How to use
