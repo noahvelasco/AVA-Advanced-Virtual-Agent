@@ -378,7 +378,7 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
               Padding(
                 padding: EdgeInsets.only(
                   top: width * .05,
-                  left: width * .10,
+                  left: width * .15,
                   right: width * .15,
                   bottom: width * .025,
                 ),

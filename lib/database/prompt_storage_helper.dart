@@ -80,8 +80,8 @@ class PromptStorageHelper {
           {'title': 'Follow-Up 2', 'prompt': 'Why?', 'status': 'default'});
 
       await db.insert('prompt_table', {
-        'title': 'Follow-Up 1',
-        'prompt': 'Tell me more?',
+        'title': 'Follow-Up 3',
+        'prompt': 'Tell me more.',
         'status': 'default'
       });
 
@@ -90,7 +90,7 @@ class PromptStorageHelper {
 
       await db.insert('prompt_table', {
         'title': 'Follow-Up 5',
-        'prompt': 'Explain that again to me but like I\'m 10?',
+        'prompt': 'Explain that to me again but like I\'m 10',
         'status': 'default'
       });
 

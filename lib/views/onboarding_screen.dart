@@ -454,14 +454,13 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Adjusting API Parameters",
           body:
-              "Fine-tune your experience in AVA by adjusting your API parameters with the sliders in the settings section.",
+              "Fine-tune your experience in AVA by adjusting the sliders in the settings section.",
           image: _buildLottieImage('triangles.json', true),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Enjoy!",
-          body:
-              "Please leave a review on the App Store and share this app with your friends!",
+          body: "Thanks for downloading and share this app with your friends!",
           image: _buildLottieImage('slinky.json', true),
           decoration: pageDecoration,
         ),
