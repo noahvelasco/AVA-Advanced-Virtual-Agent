@@ -466,7 +466,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ],
       onDone: () => _onIntroEnd(context),
-      showSkipButton: true,
+      showSkipButton: false,
       skip: const Text(
         "Skip",
         style: TextStyle(
