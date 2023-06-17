@@ -44,7 +44,7 @@ class _OutputBoxState extends State<OutputBox> {
                 ),
               );
               final snackBar = SnackBar(
-                dismissDirection: DismissDirection.up,
+                dismissDirection: DismissDirection.vertical,
                 margin:
                     EdgeInsets.only(left: 20, right: 20, bottom: height * 0.90),
                 behavior: SnackBarBehavior.floating,
