@@ -27,7 +27,6 @@
 ## Live Demo
 
 <p align =center>
-<a href = "https://youtu.be/Li2T6gfwauY"><img src="https://i.ytimg.com/an_webp/Li2T6gfwauY/mqdefault_6s.webp?du=3000&sqp=CJKotKQG&rs=AOn4CLDSNZgVQnij7Slvgi13fq0sy_QljA" alt="ava demo" height="200"/></a>
 
 <h3 align = center><a href = "https://youtu.be/Li2T6gfwauY">Demo Link (Youtube)</a></h3>
 
