@@ -384,8 +384,9 @@ class _SettingsBottomSheetState extends State<SettingsBottomSheet> {
                 ),
                 child: Text(
                   "Both API keys are locally and securely stored using Flutter Secure Storage",
-                  style: textTheme.bodySmall!
-                      .copyWith(fontStyle: FontStyle.italic),
+                  style: textTheme.bodySmall!.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ),
             ],
