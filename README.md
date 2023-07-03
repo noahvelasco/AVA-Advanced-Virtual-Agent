@@ -51,7 +51,7 @@
 ## How to use
 1. Download flutter
 2. Download this repo
-3. `flutter run` in `./ava_v2/lib/main.dart`
+3. `flutter run` in ` ./lib/main.dart`
 
 ---
 
