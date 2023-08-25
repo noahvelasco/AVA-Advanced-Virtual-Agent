@@ -27,10 +27,10 @@
 ## Live Demo
 
 <p align =center>
-
-<h3 align = center><a href = "https://youtu.be/Li2T6gfwauY">Demo Link (Youtube)</a></h3>
-
+<a href="https://youtu.be/Li2T6gfwauY?si=eIakXSvfAosICUtW" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/youtube/youtube-icon.svg" alt="dart" width="40" height="40"/>
+<h3 align = center><a href = "https://youtu.be/Li2T6gfwauY?si=eIakXSvfAosICUtW" >Demo Link (Youtube)</a></h3>
 </p>
+
 
 ---
 ## Features & TODO's
